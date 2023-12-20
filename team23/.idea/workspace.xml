@@ -4,79 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="78c17080-b880-4ec1-98db-abce4d1b4793" name="Changes" comment="Remove errors (comment //import lombok.Data;)">
-      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_20-Dec-23_16_28_[Changes]/LoggedInUserDTO.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_20-Dec-23_16_28_[Changes]/LoginController.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_20-Dec-23_16_28_[Changes]/LoginDTO.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_20-Dec-23_16_28_[Changes]/LoginService.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_20-Dec-23_16_28_[Changes]/Team23Application.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_20-Dec-23_16_28_[Changes]/UserData.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_20-Dec-23_16_28_[Changes]/shelved.patch" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_20-Dec-23_16_28_[Changes]1/LoggedInUserDTO.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_20-Dec-23_16_28_[Changes]1/LoginController.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_20-Dec-23_16_28_[Changes]1/LoginDTO.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_20-Dec-23_16_28_[Changes]1/LoginService.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_20-Dec-23_16_28_[Changes]1/Team23Application.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_20-Dec-23_16_28_[Changes]1/UserData.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_20-Dec-23_16_28_[Changes]1/shelved.patch" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_20-Dec-23_16_28__Changes_.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_20-Dec-23_16_28__Changes_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/ftn/team23/controller/AccommodationController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/ftn/team23/controller/AccountController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/ftn/team23/controller/GuestController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/ftn/team23/controller/HostController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/ftn/team23/dto/AccommodationDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/ftn/team23/dto/AccountDataDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/ftn/team23/entities/Accommodation.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/ftn/team23/entities/Guest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/ftn/team23/entities/Host.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/ftn/team23/entities/IntervalAndPrice.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/ftn/team23/enums/AccommodationAmenity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/ftn/team23/repositories/IGuestRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/ftn/team23/repositories/IHostRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/ftn/team23/repositories/IUserDataRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/ftn/team23/service/implementations/AccountService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/ftn/team23/service/implementations/GuestService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/ftn/team23/service/implementations/HostService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/ftn/team23/service/interfaces/IAccountService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/ftn/team23/service/interfaces/IGuestService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/ftn/team23/service/interfaces/IHostService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/ftn/team23/controller/AccommodationController.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/ftn/team23/controller/AccountController.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/ftn/team23/controller/GuestController.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/ftn/team23/controller/HostController.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/ftn/team23/dto/AccommodationDTO.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/ftn/team23/dto/AccountDataDTO.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/ftn/team23/entities/Accommodation.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/ftn/team23/entities/Guest.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/ftn/team23/entities/Host.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/ftn/team23/entities/IntervalAndPrice.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/ftn/team23/enums/AccommodationAmenity.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/ftn/team23/repositories/IGuestRepository.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/ftn/team23/repositories/IHostRepository.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/ftn/team23/repositories/IUserDataRepository.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/ftn/team23/service/implementations/AccountService.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/ftn/team23/service/implementations/GuestService.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/ftn/team23/service/implementations/HostService.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/ftn/team23/service/interfaces/IAccountService.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/ftn/team23/service/interfaces/IGuestService.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/ftn/team23/service/interfaces/IHostService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ftn/team23/controller/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ftn/team23/controller/LoginController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ftn/team23/dto/LoggedInUserDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ftn/team23/dto/LoggedInUserDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ftn/team23/dto/LoginDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ftn/team23/dto/LoginDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ftn/team23/entities/UserData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ftn/team23/entities/UserData.java" afterDir="false" />
+    <list default="true" id="78c17080-b880-4ec1-98db-abce4d1b4793" name="Changes" comment="Added entity UnauthenticatedUser and removed attribute isEmailVerified">
       <change beforePath="$PROJECT_DIR$/src/main/java/ftn/team23/service/implementations/LoginService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ftn/team23/service/implementations/LoginService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/ftn/team23/controller/LoginController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/ftn/team23/controller/LoginController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/ftn/team23/dto/LoggedInUserDTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/ftn/team23/dto/LoggedInUserDTO.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/ftn/team23/dto/LoginDTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/ftn/team23/dto/LoginDTO.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/ftn/team23/entities/UserData.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/ftn/team23/entities/UserData.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/ftn/team23/service/implementations/LoginService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/ftn/team23/service/implementations/LoginService.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -85,6 +14,13 @@
   </component>
   <component name="CodeInsightWorkspaceSettings">
     <option name="optimizeImportsOnTheFly" value="true" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
@@ -114,7 +50,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "development",
+    "git-widget-placeholder": "feature1.1",
     "last_opened_file_path": "D:/Projects/05_semestar/ISS/ServerSide2/team23",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -145,7 +81,7 @@
       <workItem from="1703080457213" duration="407000" />
       <workItem from="1703080975838" duration="1750000" />
       <workItem from="1703084686607" duration="1510000" />
-      <workItem from="1703086217495" duration="437000" />
+      <workItem from="1703086217495" duration="1536000" />
     </task>
     <task id="LOCAL-00001" summary="Added everything from ServerSide ftn.team23 to ServerSide2 ftn.team23">
       <option name="closed" value="true" />
@@ -179,7 +115,23 @@
       <option name="project" value="LOCAL" />
       <updated>1703081342491</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Added everything from ServerSide ftn.team23. Remove errors (comment //import lombok.Data;)">
+      <option name="closed" value="true" />
+      <created>1703096803163</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1703096803163</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Added entity UnauthenticatedUser and removed attribute isEmailVerified">
+      <option name="closed" value="true" />
+      <created>1703097798904</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1703097798904</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -191,6 +143,8 @@
     <MESSAGE value="Remove errors ('//import lombok.Data;')" />
     <MESSAGE value="Remove errors" />
     <MESSAGE value="Remove errors (comment //import lombok.Data;)" />
-    <option name="LAST_COMMIT_MESSAGE" value="Remove errors (comment //import lombok.Data;)" />
+    <MESSAGE value="Added everything from ServerSide ftn.team23. Remove errors (comment //import lombok.Data;)" />
+    <MESSAGE value="Added entity UnauthenticatedUser and removed attribute isEmailVerified" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added entity UnauthenticatedUser and removed attribute isEmailVerified" />
   </component>
 </project>

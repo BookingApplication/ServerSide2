@@ -4,13 +4,10 @@ import ftn.team23.dto.LoggedInUserDTO;
 import ftn.team23.entities.Guest;
 import ftn.team23.entities.Host;
 import ftn.team23.entities.UserData;
-import ftn.team23.repositories.IUserDataRepository;
 import ftn.team23.service.interfaces.IGuestService;
 import ftn.team23.service.interfaces.IHostService;
 import ftn.team23.service.interfaces.ILoginService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.config.ConfigurableBeanFactory;
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -36,12 +33,12 @@ public class LoginService implements ILoginService {
         UserData userData;
         Guest g = guestService.findGuestByEmail(email);
         if(g!= null) {
-            userData = new Guest(g.getEmail(), g.getPassword(), g.isEmailVerified(), g.getName(), g.getSurname(), g.getLivingAddress(), g.getTelephoneNumber());
+            userData = new Guest(g.getEmail(), g.getPassword(), g.getName(), g.getSurname(), g.getLivingAddress(), g.getTelephoneNumber());
             return userData;
         }
         Host h = hostService.findHostByEmail(email);
         if(h!=null) {
-            userData = new Host(h.getEmail(), h.getPassword(), h.isEmailVerified(), h.getName(), h.getSurname(), h.getLivingAddress(), h.getTelephoneNumber());
+            userData = new Host(h.getEmail(), h.getPassword(), h.getName(), h.getSurname(), h.getLivingAddress(), h.getTelephoneNumber());
             return userData;
         }
         else{

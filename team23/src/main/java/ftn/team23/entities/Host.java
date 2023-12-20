@@ -16,8 +16,8 @@ public class Host extends UserData implements Serializable {
     public Host() {
     }
 
-    public Host(String email, String password, boolean isEmailVerified, String name, String surname, String livingAddress, String telephoneNumber) {
-        super(email,password, isEmailVerified, name, surname, livingAddress, telephoneNumber);
+    public Host(String email, String password, String name, String surname, String livingAddress, String telephoneNumber) {
+        super(email,password, name, surname, livingAddress, telephoneNumber);
     }
 }
 

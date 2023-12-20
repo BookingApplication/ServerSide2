@@ -27,27 +27,26 @@ public class UserData implements Serializable {
     @Column(unique=true)
     private String email;
     private String password;
-    private boolean isEmailVerified;
-
-    @Column(name = "deleted")
-    private boolean deleted;
-
     private String name;
     private String surname;
     private String livingAddress;
     private String telephoneNumber;
 
+    @Column(name = "deleted")
+    private boolean deleted;
+
+    //private boolean isEmailVerified;
     public UserData() {
     }
 
-    public UserData(String email, String password, boolean isEmailVerified, String name, String surname, String livingAddress, String telephoneNumber) {
+    public UserData(String email, String password, String name, String surname, String livingAddress, String telephoneNumber) {
         this.email = email;
         this.password = password;
-        this.isEmailVerified = isEmailVerified;
         this.name = name;
         this.surname = surname;
         this.livingAddress = livingAddress;
         this.telephoneNumber = telephoneNumber;
+        //this.isEmailVerified = isEmailVerified;
     }
 
     public Long getId() {
@@ -70,14 +69,6 @@ public class UserData implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public boolean isEmailVerified() {
-        return isEmailVerified;
-    }
-
-    public void setEmailVerified(boolean emailVerified) {
-        isEmailVerified = emailVerified;
     }
 
     public String getName() {
@@ -111,5 +102,15 @@ public class UserData implements Serializable {
     public void setTelephoneNumber(String telephoneNumber) {
         this.telephoneNumber = telephoneNumber;
     }
+
+    /*
+    public boolean isEmailVerified() {
+        return isEmailVerified;
+    }
+
+    public void setEmailVerified(boolean emailVerified) {
+        isEmailVerified = emailVerified;
+    }
+    */
 
 }
