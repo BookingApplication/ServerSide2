@@ -5,7 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="78c17080-b880-4ec1-98db-abce4d1b4793" name="Changes" comment="Added entity UnauthenticatedUser and removed attribute isEmailVerified">
-      <change beforePath="$PROJECT_DIR$/src/main/java/ftn/team23/service/implementations/LoginService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ftn/team23/service/implementations/LoginService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ftn/team23/entities/UserData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ftn/team23/entities/UserData.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -19,6 +20,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Class" />
+        <option value="Enum" />
       </list>
     </option>
   </component>
@@ -81,7 +83,7 @@
       <workItem from="1703080457213" duration="407000" />
       <workItem from="1703080975838" duration="1750000" />
       <workItem from="1703084686607" duration="1510000" />
-      <workItem from="1703086217495" duration="1536000" />
+      <workItem from="1703086217495" duration="2527000" />
     </task>
     <task id="LOCAL-00001" summary="Added everything from ServerSide ftn.team23 to ServerSide2 ftn.team23">
       <option name="closed" value="true" />
@@ -131,7 +133,15 @@
       <option name="project" value="LOCAL" />
       <updated>1703097798904</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Added entity UnauthenticatedUser and removed attribute isEmailVerified">
+      <option name="closed" value="true" />
+      <created>1703097890207</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1703097890207</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

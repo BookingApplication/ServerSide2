@@ -1,5 +1,6 @@
 package ftn.team23.entities;
 
+import ftn.team23.enums.UserRole;
 import jakarta.persistence.*;
 //import lombok.Data;
 
@@ -31,6 +32,11 @@ public class UserData implements Serializable {
     private String surname;
     private String livingAddress;
     private String telephoneNumber;
+    private boolean activated;      //atribut koji oznacava da li je nalog aktiviran
+    private String codeActivation;  //kod koji je poslat u emailu za aktivaciju naloga
+
+    @Enumerated(EnumType.STRING)
+    private UserRole role;          //enumeracija za role (HOST, GUEST, ADMIN)
 
     @Column(name = "deleted")
     private boolean deleted;
