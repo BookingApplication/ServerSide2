@@ -1,6 +1,6 @@
 package ftn.team23.dto;
 
-import ftn.team23.entities.UserData;
+import ftn.team23.entities.User;
 
 public class AccountDataDTO {
     private String email;
@@ -12,7 +12,7 @@ public class AccountDataDTO {
 
     public AccountDataDTO(){}
 
-    public AccountDataDTO(UserData u) {this(u.getEmail(), u.getPassword(), u.getName(), u.getSurname(), u.getLivingAddress(), u.getTelephoneNumber());}
+    public AccountDataDTO(User u) {this(u.getEmail(), u.getPassword(), u.getName(), u.getSurname(), u.getLivingAddress(), u.getTelephoneNumber());}
 
     public AccountDataDTO(String email, String password, String name, String surname, String livingAddress, String telephoneNumber) {
         this.email = email;

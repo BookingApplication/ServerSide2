@@ -5,7 +5,7 @@ import jakarta.persistence.Entity;
 import java.io.Serializable;
 
 @Entity
-public class Guest extends UserData implements Serializable {
+public class Guest extends User implements Serializable {
     public Guest() {
     }
 

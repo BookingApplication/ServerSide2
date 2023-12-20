@@ -4,9 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="78c17080-b880-4ec1-98db-abce4d1b4793" name="Changes" comment="Added entity UnauthenticatedUser and removed attribute isEmailVerified">
+    <list default="true" id="78c17080-b880-4ec1-98db-abce4d1b4793" name="Changes" comment="Added enum UserRole and added more attributes to UserData">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ftn/team23/entities/UserData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ftn/team23/entities/UserData.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -53,7 +52,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "feature1.1",
-    "last_opened_file_path": "D:/Projects/05_semestar/ISS/ServerSide2/team23",
+    "last_opened_file_path": "D:/School/FTN/Lekcije/3.godina/5.semestar/ISS/Vežbe/08-Spring-security/spring-security-example-nova-verzija/spring-security-example",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -83,7 +82,7 @@
       <workItem from="1703080457213" duration="407000" />
       <workItem from="1703080975838" duration="1750000" />
       <workItem from="1703084686607" duration="1510000" />
-      <workItem from="1703086217495" duration="2527000" />
+      <workItem from="1703086217495" duration="4122000" />
     </task>
     <task id="LOCAL-00001" summary="Added everything from ServerSide ftn.team23 to ServerSide2 ftn.team23">
       <option name="closed" value="true" />
@@ -141,7 +140,15 @@
       <option name="project" value="LOCAL" />
       <updated>1703097890207</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Added enum UserRole and added more attributes to UserData">
+      <option name="closed" value="true" />
+      <created>1703098951462</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1703098951462</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -155,6 +162,7 @@
     <MESSAGE value="Remove errors (comment //import lombok.Data;)" />
     <MESSAGE value="Added everything from ServerSide ftn.team23. Remove errors (comment //import lombok.Data;)" />
     <MESSAGE value="Added entity UnauthenticatedUser and removed attribute isEmailVerified" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added entity UnauthenticatedUser and removed attribute isEmailVerified" />
+    <MESSAGE value="Added enum UserRole and added more attributes to UserData" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added enum UserRole and added more attributes to UserData" />
   </component>
 </project>

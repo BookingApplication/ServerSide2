@@ -1,6 +1,6 @@
 package ftn.team23.dto;
 
-import ftn.team23.entities.UserData;
+import ftn.team23.entities.User;
 
 
 public class LoginDTO {
@@ -16,9 +16,9 @@ public class LoginDTO {
         this.password = password;
     }
 
-    public LoginDTO(UserData userData){
-        this.email = userData.getEmail();
-        this.password = userData.getPassword();
+    public LoginDTO(User user){
+        this.email = user.getEmail();
+        this.password = user.getPassword();
     }
 
     public String getEmail() {

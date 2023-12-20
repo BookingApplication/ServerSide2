@@ -3,7 +3,7 @@ package ftn.team23.service.implementations;
 import ftn.team23.dto.LoggedInUserDTO;
 import ftn.team23.entities.Guest;
 import ftn.team23.entities.Host;
-import ftn.team23.entities.UserData;
+import ftn.team23.entities.User;
 import ftn.team23.service.interfaces.IGuestService;
 import ftn.team23.service.interfaces.IHostService;
 import ftn.team23.service.interfaces.ILoginService;
@@ -29,17 +29,17 @@ public class LoginService implements ILoginService {
     }
 
     @Override
-    public UserData getUserByEmail(String email) {
-        UserData userData;
+    public User getUserByEmail(String email) {
+        User user;
         Guest g = guestService.findGuestByEmail(email);
         if(g!= null) {
-            userData = new Guest(g.getEmail(), g.getPassword(), g.getName(), g.getSurname(), g.getLivingAddress(), g.getTelephoneNumber());
-            return userData;
+            user = new Guest(g.getEmail(), g.getPassword(), g.getName(), g.getSurname(), g.getLivingAddress(), g.getTelephoneNumber());
+            return user;
         }
         Host h = hostService.findHostByEmail(email);
         if(h!=null) {
-            userData = new Host(h.getEmail(), h.getPassword(), h.getName(), h.getSurname(), h.getLivingAddress(), h.getTelephoneNumber());
-            return userData;
+            user = new Host(h.getEmail(), h.getPassword(), h.getName(), h.getSurname(), h.getLivingAddress(), h.getTelephoneNumber());
+            return user;
         }
         else{
             return null;
@@ -51,8 +51,8 @@ public class LoginService implements ILoginService {
     @Override
     public LoggedInUserDTO login(String email, String password) {
         if (isValidLogin(email, password)) {
-            UserData userData = getUserByEmail(email);
-            return new LoggedInUserDTO(userData.getName(), userData.getSurname(), userData.getEmail());
+            User user = getUserByEmail(email);
+            return new LoggedInUserDTO(user.getName(), user.getSurname(), user.getEmail());
         }
         return null;
 //        UserData userData = new UserData("testmail@gmail.com", "passs", true, "pera", "pepeper", "adresa 3", "23489");

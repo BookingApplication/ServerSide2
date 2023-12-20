@@ -7,7 +7,7 @@ import java.io.Serializable;
 import java.util.Set;
 
 @Entity
-public class Host extends UserData implements Serializable {
+public class Host extends User implements Serializable {
 
     @OneToMany(mappedBy = "host", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Accommodation> accommodations;

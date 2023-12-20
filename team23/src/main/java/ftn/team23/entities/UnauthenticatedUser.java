@@ -1,6 +1,6 @@
 package ftn.team23.entities;
 
-public class UnauthenticatedUser extends UserData {
+public class UnauthenticatedUser extends User {
 
     public UnauthenticatedUser(){
         super();

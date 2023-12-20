@@ -19,7 +19,7 @@ import java.io.Serializable;
         pkColumnName="key_pk",
         pkColumnValue="user_data",
         valueColumnName="value_pk")
-public class UserData implements Serializable {
+public class User implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
@@ -42,10 +42,10 @@ public class UserData implements Serializable {
     private boolean deleted;
 
     //private boolean isEmailVerified;
-    public UserData() {
+    public User() {
     }
 
-    public UserData(String email, String password, String name, String surname, String livingAddress, String telephoneNumber) {
+    public User(String email, String password, String name, String surname, String livingAddress, String telephoneNumber) {
         this.email = email;
         this.password = password;
         this.name = name;
