@@ -1,43 +1,22 @@
-package ftn.team23.entities;
+package ftn.team23.dto;
 
-import javax.persistence.*;
-
-@Entity
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-public class UserData {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
-    private Long id;
-
+public class AccountDataDTO {
     private String email;
     private String password;
-    private boolean isEmailVerified;
-
     private String name;
     private String surname;
     private String livingAddress;
     private String telephoneNumber;
 
-    public UserData() {
-    }
+    public AccountDataDTO(){}
 
-    public UserData(String email, String password, boolean isEmailVerified, String name, String surname, String livingAddress, String telephoneNumber) {
+    public AccountDataDTO(String email, String password, String name, String surname, String livingAddress, String telephoneNumber) {
         this.email = email;
         this.password = password;
-        this.isEmailVerified = isEmailVerified;
         this.name = name;
         this.surname = surname;
         this.livingAddress = livingAddress;
         this.telephoneNumber = telephoneNumber;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getEmail() {
@@ -48,18 +27,12 @@ public class UserData {
         this.email = email;
     }
 
-    public String getPassword() {return password;}
+    public String getPassword() {
+        return password;
+    }
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public boolean isEmailVerified() {
-        return isEmailVerified;
-    }
-
-    public void setEmailVerified(boolean emailVerified) {
-        isEmailVerified = emailVerified;
     }
 
     public String getName() {
