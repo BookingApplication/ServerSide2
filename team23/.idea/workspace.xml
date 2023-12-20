@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="78c17080-b880-4ec1-98db-abce4d1b4793" name="Changes" comment="Remove errors (comment //import lombok.Data;)">
+      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_20-Dec-23_16_28_[Changes]/LoggedInUserDTO.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_20-Dec-23_16_28_[Changes]/LoginController.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_20-Dec-23_16_28_[Changes]/LoginDTO.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_20-Dec-23_16_28_[Changes]/LoginService.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_20-Dec-23_16_28_[Changes]/Team23Application.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_20-Dec-23_16_28_[Changes]/UserData.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_20-Dec-23_16_28_[Changes]/shelved.patch" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_20-Dec-23_16_28_[Changes]1/LoggedInUserDTO.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_20-Dec-23_16_28_[Changes]1/LoginController.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_20-Dec-23_16_28_[Changes]1/LoginDTO.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_20-Dec-23_16_28_[Changes]1/LoginService.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_20-Dec-23_16_28_[Changes]1/Team23Application.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_20-Dec-23_16_28_[Changes]1/UserData.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_20-Dec-23_16_28_[Changes]1/shelved.patch" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_20-Dec-23_16_28__Changes_.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_20-Dec-23_16_28__Changes_1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ftn/team23/controller/AccommodationController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ftn/team23/controller/AccountController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ftn/team23/controller/GuestController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ftn/team23/controller/HostController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ftn/team23/dto/AccommodationDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ftn/team23/dto/AccountDataDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ftn/team23/entities/Accommodation.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ftn/team23/entities/Guest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ftn/team23/entities/Host.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ftn/team23/entities/IntervalAndPrice.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ftn/team23/enums/AccommodationAmenity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ftn/team23/repositories/IGuestRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ftn/team23/repositories/IHostRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ftn/team23/repositories/IUserDataRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ftn/team23/service/implementations/AccountService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ftn/team23/service/implementations/GuestService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ftn/team23/service/implementations/HostService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ftn/team23/service/interfaces/IAccountService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ftn/team23/service/interfaces/IGuestService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ftn/team23/service/interfaces/IHostService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/ftn/team23/controller/AccommodationController.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/ftn/team23/controller/AccountController.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/ftn/team23/controller/GuestController.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/ftn/team23/controller/HostController.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/ftn/team23/dto/AccommodationDTO.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/ftn/team23/dto/AccountDataDTO.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/ftn/team23/entities/Accommodation.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/ftn/team23/entities/Guest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/ftn/team23/entities/Host.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/ftn/team23/entities/IntervalAndPrice.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/ftn/team23/enums/AccommodationAmenity.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/ftn/team23/repositories/IGuestRepository.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/ftn/team23/repositories/IHostRepository.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/ftn/team23/repositories/IUserDataRepository.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/ftn/team23/service/implementations/AccountService.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/ftn/team23/service/implementations/GuestService.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/ftn/team23/service/implementations/HostService.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/ftn/team23/service/interfaces/IAccountService.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/ftn/team23/service/interfaces/IGuestService.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/ftn/team23/service/interfaces/IHostService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ftn/team23/controller/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ftn/team23/controller/LoginController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ftn/team23/dto/LoggedInUserDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ftn/team23/dto/LoggedInUserDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ftn/team23/dto/LoginDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ftn/team23/dto/LoginDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ftn/team23/entities/UserData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ftn/team23/entities/UserData.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ftn/team23/service/implementations/LoginService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ftn/team23/service/implementations/LoginService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ftn/team23/controller/LoginController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/ftn/team23/controller/LoginController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ftn/team23/dto/LoggedInUserDTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/ftn/team23/dto/LoggedInUserDTO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ftn/team23/dto/LoginDTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/ftn/team23/dto/LoginDTO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ftn/team23/entities/UserData.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/ftn/team23/entities/UserData.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ftn/team23/service/implementations/LoginService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/ftn/team23/service/implementations/LoginService.class" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CodeInsightWorkspaceSettings">
+    <option name="optimizeImportsOnTheFly" value="true" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$/.." value="feature1.1.1" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 8
+}</component>
+  <component name="ProjectId" id="2Zo95MU20a6qUipZw2OPVWaUG7p" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "development",
+    "last_opened_file_path": "D:/Projects/05_semestar/ISS/ServerSide2/team23",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RunManager">
+    <configuration name="Team23Application" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="team23" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="ftn.team23.Team23Application" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="78c17080-b880-4ec1-98db-abce4d1b4793" name="Changes" comment="" />
+      <created>1703077382237</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1703077382237</updated>
+      <workItem from="1703077383244" duration="2625000" />
+      <workItem from="1703080457213" duration="407000" />
+      <workItem from="1703080975838" duration="1750000" />
+      <workItem from="1703084686607" duration="1510000" />
+      <workItem from="1703086217495" duration="437000" />
+    </task>
+    <task id="LOCAL-00001" summary="Added everything from ServerSide ftn.team23 to ServerSide2 ftn.team23">
+      <option name="closed" value="true" />
+      <created>1703079595570</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1703079595570</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Added everything from main branch to feature1.1.1">
+      <option name="closed" value="true" />
+      <created>1703080572254</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1703080572254</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Remove errors">
+      <option name="closed" value="true" />
+      <created>1703081180312</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1703081180312</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Remove errors (comment //import lombok.Data;)">
+      <option name="closed" value="true" />
+      <created>1703081342491</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1703081342491</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Added everything from ServerSide ftn.team23 to ServerSide2 ftn.team23" />
+    <MESSAGE value="Added everything from main branch to feature1.1.1" />
+    <MESSAGE value="Remove errors ('//import lombok.Data;')" />
+    <MESSAGE value="Remove errors" />
+    <MESSAGE value="Remove errors (comment //import lombok.Data;)" />
+    <option name="LAST_COMMIT_MESSAGE" value="Remove errors (comment //import lombok.Data;)" />
+  </component>
+</project>

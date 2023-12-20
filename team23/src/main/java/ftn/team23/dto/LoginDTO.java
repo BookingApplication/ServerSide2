@@ -2,6 +2,7 @@ package ftn.team23.dto;
 
 import ftn.team23.entities.UserData;
 
+
 public class LoginDTO {
     private String email;
 

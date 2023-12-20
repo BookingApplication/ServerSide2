@@ -1,17 +1,36 @@
 package ftn.team23.entities;
 
 import jakarta.persistence.*;
+//import lombok.Data;
+
+import java.io.Serializable;
 
 @Entity
+////opcija 2, uz identity generated value
+//@Inheritance(strategy = InheritanceType.JOINED)
+////opcija 3, uz identity generated value
+//@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+////
+
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-public class UserData {
+@TableGenerator(name="user_data_id_generator",
+        table="primary_keys",
+        pkColumnName="key_pk",
+        pkColumnValue="user_data",
+        valueColumnName="value_pk")
+public class UserData implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
     private Long id;
 
+    @Column(unique=true)
     private String email;
     private String password;
     private boolean isEmailVerified;
+
+    @Column(name = "deleted")
+    private boolean deleted;
 
     private String name;
     private String surname;
