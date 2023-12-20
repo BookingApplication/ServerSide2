@@ -10,5 +10,6 @@ public interface IUserDataRepository<T extends UserData> extends JpaRepository<T
     T findByEmailAndPassword(String email, String password);
 
     T findByEmail(String email);
+
 }
 

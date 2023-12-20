@@ -1,13 +1,23 @@
 package ftn.team23.repositories;
 
 import ftn.team23.entities.Guest;
+import org.springframework.data.jpa.repository.Query;
+
+import java.util.List;
 
 public interface IGuestRepository extends IUserDataRepository<Guest> {
 
 
-   public void insertGuest(Guest guest);
-   public void deleteByEmail(String email);
-   //public void updateGuestByEmail(String email, String name, String surname, String livingAddress, String telephoneNumber);
+   Guest save(Guest guest);
+
+   @Override
+   void deleteById(Long aLong);
+
+   @Override
+   Guest findByEmail(String email);
+
+   @Override
+   Guest findByEmailAndPassword(String email, String password);
 
 }
 

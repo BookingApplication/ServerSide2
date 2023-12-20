@@ -1,9 +1,17 @@
 package ftn.team23.entities;
 
-import javax.persistence.Entity;
+import jakarta.persistence.*;
+import lombok.Data;
+
+import java.io.Serializable;
+import java.util.Set;
 
 @Entity
-public class Host extends UserData {
+public class Host extends UserData implements Serializable {
+
+    @OneToMany(mappedBy = "host", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<Accommodation> accommodations;
+
 
     public Host() {
     }
@@ -12,3 +20,4 @@ public class Host extends UserData {
         super(email,password, isEmailVerified, name, surname, livingAddress, telephoneNumber);
     }
 }
+

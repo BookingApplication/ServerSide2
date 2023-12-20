@@ -1,11 +1,14 @@
 package ftn.team23.dto;
 
+import ftn.team23.entities.UserData;
+
 public class LoggedInUserDTO {
     private String name;
     private String surname;
     private String email;
 
     LoggedInUserDTO(){}
+    LoggedInUserDTO(UserData u) {this(u.getName(), u.getSurname(), u.getEmail());}
 
     public LoggedInUserDTO(String name, String surname, String email) {
         this.name = name;
@@ -36,4 +39,5 @@ public class LoggedInUserDTO {
     public void setEmail(String email) {
         this.email = email;
     }
+
 }

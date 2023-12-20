@@ -1,8 +1,20 @@
 package ftn.team23.enums;
 
 public enum AccommodationAmenity {
-    WIFI,
+    FREE_WIFI,
     PARKING,
-    BALCONY,
+    ROOM_SERVICE,
+    SWIMMING_POOL,
+    BUSINESS_CENTER,
     AIR_CONDITIONING,
+    FLAT_SCREEN_TV,
+    HAIR_DRYER,
+    PRIVATE_BATHROOM,
+    LUGGAGE_STORAGE,
+    SAFE_DEPOSIT_BOX,
+    LAUNDRY_SERVICES,
+    FREE_TOILETRIES,
+    FREE_BREAKFAST,
 }
+
+
