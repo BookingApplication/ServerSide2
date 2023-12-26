@@ -23,9 +23,10 @@ public class HostService implements IHostService {
     IHostRepository repository;
 
     @Override
-    public AccountDataDTO register(AccountDataDTO guestData) {
-        Host h = repository.findByEmail(guestData.getEmail());
-        if(h == null) {
+    public AccountDataDTO register(AccountDataDTO hostData) {
+//        Host h = repository.findByEmail(guestData.getEmail());
+        Host h = repository.findHostByEmail(hostData.getEmail());
+        if(h != null) {
             return null;
         }
         else {
@@ -56,22 +57,37 @@ public class HostService implements IHostService {
 
     @Override
     public void deleteHostByEmail(String email) {
-        Host g = repository.findByEmail(email);
-        if(g!=null){
-            repository.deleteById(g.getId());
-        }
+
     }
 
     @Override
     public Host findHostByEmail(String email) {
-        return repository.findByEmail(email);
+        return null;
     }
 
     @Override
     public boolean findByEmailAndPassword(String email, String password) {
-        Host g = repository.findByEmail(email);
-        if(g!=null)
-            return g.getPassword().equals( password);
-        else return false;
+        return false;
     }
+
+//    @Override
+//    public void deleteHostByEmail(String email) {
+//        Host g = repository.findByEmail(email);
+//        if(g!=null){
+//            repository.deleteById(g.getId());
+//        }
+//    }
+//
+//    @Override
+//    public Host findHostByEmail(String email) {
+//        return repository.findByEmail(email);
+//    }
+//
+//    @Override
+//    public boolean findByEmailAndPassword(String email, String password) {
+//        Host g = repository.findByEmail(email);
+//        if(g!=null)
+//            return g.getPassword().equals( password);
+//        else return false;
+//    }
 }

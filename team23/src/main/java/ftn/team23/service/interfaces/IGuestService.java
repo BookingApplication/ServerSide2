@@ -10,5 +10,4 @@ public interface IGuestService {
      Guest findGuestByEmail(String email);
      boolean findByEmailAndPassword(String email, String password);
 
-
 }

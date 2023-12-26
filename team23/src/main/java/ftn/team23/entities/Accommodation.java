@@ -1,6 +1,7 @@
 package ftn.team23.entities;
 
 import ftn.team23.enums.AccommodationAmenity;
+import ftn.team23.enums.Status;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
@@ -26,6 +27,7 @@ public class Accommodation implements Serializable {
     private int minGuests;
     private int maxGuests;
     private String accommodationType;   //Studio, apartment, ...
+    private Status status;
 
     @ElementCollection
     @Enumerated(EnumType.STRING)

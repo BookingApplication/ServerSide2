@@ -7,6 +7,7 @@ import jakarta.persistence.*;
 import java.io.Serializable;
 
 @Entity
+@Table(name = "user_data")
 ////opcija 2, uz identity generated value
 //@Inheritance(strategy = InheritanceType.JOINED)
 ////opcija 3, uz identity generated value
@@ -19,10 +20,10 @@ import java.io.Serializable;
         pkColumnName="key_pk",
         pkColumnValue="user_data",
         valueColumnName="value_pk")
-public class User implements Serializable {
+public abstract class User implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = "user_data_id_generator")
     private Long id;
 
     @Column(unique=true)
@@ -108,15 +109,5 @@ public class User implements Serializable {
     public void setTelephoneNumber(String telephoneNumber) {
         this.telephoneNumber = telephoneNumber;
     }
-
-    /*
-    public boolean isEmailVerified() {
-        return isEmailVerified;
-    }
-
-    public void setEmailVerified(boolean emailVerified) {
-        isEmailVerified = emailVerified;
-    }
-    */
 
 }
