@@ -2,10 +2,13 @@ package ftn.team23.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.Collection;
+import java.util.List;
 
 @Entity
 @Table(name = "user_data")
@@ -38,11 +41,11 @@ public abstract class User implements Serializable, UserDetails {
     private boolean activated;      //atribut koji oznacava da li je nalog aktiviran
     private String codeActivation;  //kod koji je poslat u emailu za aktivaciju naloga
 
-    /*@ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_role",
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
-    private List<Role> roles;*/
+    private List<Role> roles;
 
     /*@Column(name = "deleted")
     private boolean deleted;*/
@@ -123,11 +126,11 @@ public abstract class User implements Serializable, UserDetails {
         this.lastPasswordResetDate = lastPasswordResetDate;
     }
 
-    /*@JsonIgnore
+    @JsonIgnore
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return this.roles;
-    }*/
+    }
 
     @JsonIgnore
     @Override

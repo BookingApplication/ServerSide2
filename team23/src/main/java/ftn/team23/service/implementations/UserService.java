@@ -1,5 +1,6 @@
 package ftn.team23.service.implementations;
 
+import ftn.team23.dto.UserRequest;
 import ftn.team23.entities.User;
 import ftn.team23.service.interfaces.IUserService;
 import org.springframework.stereotype.Service;
@@ -29,8 +30,8 @@ public class UserService implements IUserService {
         return null;
     }
 
-    /*@Override
+    @Override
     public User save(UserRequest userRequest) {
         return null;
-    }*/
+    }
 }
