@@ -4,51 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="78c17080-b880-4ec1-98db-abce4d1b4793" name="Changes" comment="Change from UserData to User">
-      <change afterPath="$PROJECT_DIR$/src/main/java/ftn/team23/repositories/IUserRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_20-Dec-23_16_28_[Changes]1/LoggedInUserDTO.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_20-Dec-23_16_28_[Changes]1/LoginController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_20-Dec-23_16_28_[Changes]1/LoginDTO.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_20-Dec-23_16_28_[Changes]1/LoginService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_20-Dec-23_16_28_[Changes]1/Team23Application.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_20-Dec-23_16_28_[Changes]1/UserData.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_20-Dec-23_16_28_[Changes]1/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_20-Dec-23_16_28__Changes_1.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ftn/team23/entities/Guest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ftn/team23/entities/Guest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ftn/team23/entities/Host.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ftn/team23/entities/Host.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ftn/team23/entities/UnauthenticatedUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ftn/team23/entities/UnauthenticatedUser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ftn/team23/entities/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ftn/team23/entities/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/ftn/team23/Team23Application.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/ftn/team23/controller/AccommodationController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/ftn/team23/controller/AccountController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/ftn/team23/controller/GuestController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/ftn/team23/controller/HostController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/ftn/team23/controller/LoginController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/ftn/team23/dto/AccommodationDTO.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/ftn/team23/dto/AccountDataDTO.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/ftn/team23/dto/LoggedInUserDTO.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/ftn/team23/dto/LoginDTO.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/ftn/team23/entities/Accommodation.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/ftn/team23/entities/Guest.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/ftn/team23/entities/Host.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/ftn/team23/entities/IntervalAndPrice.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/ftn/team23/entities/UserData.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/ftn/team23/enums/AccommodationAmenity.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/ftn/team23/repositories/IGuestRepository.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/ftn/team23/repositories/IHostRepository.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/ftn/team23/repositories/IUserDataRepository.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/ftn/team23/service/implementations/AccountService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/ftn/team23/service/implementations/GuestService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/ftn/team23/service/implementations/HostService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/ftn/team23/service/implementations/LoginService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/ftn/team23/service/interfaces/IAccountService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/ftn/team23/service/interfaces/IGuestService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/ftn/team23/service/interfaces/IHostService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/ftn/team23/service/interfaces/ILoginService.class" beforeDir="false" />
-    </list>
+    <list default="true" id="78c17080-b880-4ec1-98db-abce4d1b4793" name="Changes" comment="Added spring-security dependencies in pom.xml and added methods in IUserService and IUserRepository" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -141,7 +97,7 @@
       <workItem from="1703148696685" duration="488000" />
       <workItem from="1703708101337" duration="4308000" />
       <workItem from="1703721809498" duration="1458000" />
-      <workItem from="1703750138843" duration="4467000" />
+      <workItem from="1703750138843" duration="4846000" />
     </task>
     <task id="LOCAL-00001" summary="Added everything from ServerSide ftn.team23 to ServerSide2 ftn.team23">
       <option name="closed" value="true" />
@@ -215,7 +171,15 @@
       <option name="project" value="LOCAL" />
       <updated>1703102951804</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Added spring-security dependencies in pom.xml and added methods in IUserService and IUserRepository">
+      <option name="closed" value="true" />
+      <created>1703756374553</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1703756374553</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -231,6 +195,7 @@
     <MESSAGE value="Added entity UnauthenticatedUser and removed attribute isEmailVerified" />
     <MESSAGE value="Added enum UserRole and added more attributes to UserData" />
     <MESSAGE value="Change from UserData to User" />
-    <option name="LAST_COMMIT_MESSAGE" value="Change from UserData to User" />
+    <MESSAGE value="Added spring-security dependencies in pom.xml and added methods in IUserService and IUserRepository" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added spring-security dependencies in pom.xml and added methods in IUserService and IUserRepository" />
   </component>
 </project>
