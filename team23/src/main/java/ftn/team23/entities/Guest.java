@@ -1,13 +1,6 @@
 package ftn.team23.entities;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.OneToMany;
-
-import java.io.Serializable;
-import java.util.List;
-import java.util.Set;
 
 @Entity
 //public class Guest extends User implements Serializable {
@@ -19,4 +12,14 @@ public class Guest extends User{
         super(email,password, name, surname, livingAddress, telephoneNumber);
     }
 
+
+    @Override
+    public String getUsername() {
+        return null;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return false;
+    }
 }

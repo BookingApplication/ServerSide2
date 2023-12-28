@@ -1,9 +1,10 @@
 package ftn.team23.entities;
 
-import jakarta.persistence.*;
-//import lombok.Data;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.OneToMany;
 
-import java.io.Serializable;
 import java.util.Set;
 
 @Entity
@@ -20,6 +21,16 @@ public class Host extends User{
 
     public Host(String email, String password, String name, String surname, String livingAddress, String telephoneNumber) {
         super(email,password, name, surname, livingAddress, telephoneNumber);
+    }
+
+    @Override
+    public String getUsername() {
+        return null;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return false;
     }
 }
 
