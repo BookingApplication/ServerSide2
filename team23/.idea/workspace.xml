@@ -4,7 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="78c17080-b880-4ec1-98db-abce4d1b4793" name="Changes" comment="Added ResourceConflictException.java in exception package" />
+    <list default="true" id="78c17080-b880-4ec1-98db-abce4d1b4793" name="Changes" comment="Added TokenUtils.java in util package and fixed import problems.">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ftn/team23/util/TokenUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ftn/team23/util/TokenUtils.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -67,10 +70,10 @@
       <recent name="D:\Projects\05_semestar\ISS\ServerSide2\team23\src\main\java\ftn\team23\controller" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="ftn.team23.service.implementations" />
       <recent name="ftn.team23.entities" />
       <recent name="ftn.team23.controller" />
       <recent name="ftn.team23.config" />
-      <recent name="ftn.team23.service.implementations" />
     </key>
   </component>
   <component name="RunManager">
@@ -98,7 +101,7 @@
       <workItem from="1703148696685" duration="488000" />
       <workItem from="1703708101337" duration="4308000" />
       <workItem from="1703721809498" duration="1458000" />
-      <workItem from="1703750138843" duration="5542000" />
+      <workItem from="1703750138843" duration="6227000" />
     </task>
     <task id="LOCAL-00001" summary="Added everything from ServerSide ftn.team23 to ServerSide2 ftn.team23">
       <option name="closed" value="true" />
@@ -220,7 +223,31 @@
       <option name="project" value="LOCAL" />
       <updated>1703757159149</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="Added RestAuthenticationEntryPoint.java, TokenAuthenticationFilter.java and TokenBasedAuthentication.java in security.auth package">
+      <option name="closed" value="true" />
+      <created>1703757345988</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1703757345988</updated>
+    </task>
+    <task id="LOCAL-00017" summary="Added CustomUserDetailsService.java in service/implementations">
+      <option name="closed" value="true" />
+      <created>1703757444036</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1703757444036</updated>
+    </task>
+    <task id="LOCAL-00018" summary="Added TokenUtils.java in util package and fixed import problems.">
+      <option name="closed" value="true" />
+      <created>1703757767438</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1703757767438</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -242,6 +269,9 @@
     <MESSAGE value="Added JwtAuthenticationRequest.java, UserRequest.java and UserTokenState.java in dto package" />
     <MESSAGE value="Added Role.java in entities package" />
     <MESSAGE value="Added ResourceConflictException.java in exception package" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added ResourceConflictException.java in exception package" />
+    <MESSAGE value="Added RestAuthenticationEntryPoint.java, TokenAuthenticationFilter.java and TokenBasedAuthentication.java in security.auth package" />
+    <MESSAGE value="Added CustomUserDetailsService.java in service/implementations" />
+    <MESSAGE value="Added TokenUtils.java in util package and fixed import problems." />
+    <option name="LAST_COMMIT_MESSAGE" value="Added TokenUtils.java in util package and fixed import problems." />
   </component>
 </project>
