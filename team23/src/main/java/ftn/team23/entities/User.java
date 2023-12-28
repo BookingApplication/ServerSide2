@@ -37,8 +37,8 @@ public abstract class User implements Serializable, UserDetails {
     private Timestamp lastPasswordResetDate;
     private boolean activated;      //atribut koji oznacava da li je nalog aktiviran
     private String codeActivation;  //kod koji je poslat u emailu za aktivaciju naloga
-/*
-    @ManyToMany(fetch = FetchType.EAGER)
+
+    /*@ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_role",
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))

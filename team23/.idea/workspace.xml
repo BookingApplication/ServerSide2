@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="78c17080-b880-4ec1-98db-abce4d1b4793" name="Changes" comment="Added spring-security dependencies in pom.xml and added methods in IUserService and IUserRepository" />
+    <list default="true" id="78c17080-b880-4ec1-98db-abce4d1b4793" name="Changes" comment="Added JwtAuthenticationRequest.java, UserRequest.java and UserTokenState.java in dto package" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -51,7 +51,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "feature1.1",
-    "last_opened_file_path": "D:/Projects/05_semestar/ServerSide2/team23",
+    "last_opened_file_path": "D:/Projects/05_semestar/ISS/ServerSide2/team23/src/main/java/ftn/team23/dto",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -62,11 +62,12 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\Projects\05_semestar\ISS\ServerSide2\team23\src\main\java\ftn\team23" />
       <recent name="D:\Projects\05_semestar\ISS\ServerSide2\team23\src\main\java\ftn\team23\dto" />
+      <recent name="D:\Projects\05_semestar\ISS\ServerSide2\team23\src\main\java\ftn\team23" />
       <recent name="D:\Projects\05_semestar\ISS\ServerSide2\team23\src\main\java\ftn\team23\controller" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="ftn.team23.controller" />
       <recent name="ftn.team23.config" />
       <recent name="ftn.team23.entities" />
       <recent name="ftn.team23.service.implementations" />
@@ -97,7 +98,7 @@
       <workItem from="1703148696685" duration="488000" />
       <workItem from="1703708101337" duration="4308000" />
       <workItem from="1703721809498" duration="1458000" />
-      <workItem from="1703750138843" duration="4846000" />
+      <workItem from="1703750138843" duration="5189000" />
     </task>
     <task id="LOCAL-00001" summary="Added everything from ServerSide ftn.team23 to ServerSide2 ftn.team23">
       <option name="closed" value="true" />
@@ -179,7 +180,31 @@
       <option name="project" value="LOCAL" />
       <updated>1703756374553</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Added config/WebSecurityConfig.java">
+      <option name="closed" value="true" />
+      <created>1703756632838</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1703756632838</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Added AuthenticationController.java">
+      <option name="closed" value="true" />
+      <created>1703756729990</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1703756729990</updated>
+    </task>
+    <task id="LOCAL-00013" summary="Added JwtAuthenticationRequest.java, UserRequest.java and UserTokenState.java in dto package">
+      <option name="closed" value="true" />
+      <created>1703756834010</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1703756834010</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -196,6 +221,9 @@
     <MESSAGE value="Added enum UserRole and added more attributes to UserData" />
     <MESSAGE value="Change from UserData to User" />
     <MESSAGE value="Added spring-security dependencies in pom.xml and added methods in IUserService and IUserRepository" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added spring-security dependencies in pom.xml and added methods in IUserService and IUserRepository" />
+    <MESSAGE value="Added config/WebSecurityConfig.java" />
+    <MESSAGE value="Added AuthenticationController.java" />
+    <MESSAGE value="Added JwtAuthenticationRequest.java, UserRequest.java and UserTokenState.java in dto package" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added JwtAuthenticationRequest.java, UserRequest.java and UserTokenState.java in dto package" />
   </component>
 </project>
