@@ -38,7 +38,7 @@ public class AuthenticationController {
 
 	@Autowired
 	private UserService userService;
-	
+
 	// Prvi endpoint koji pogadja korisnik kada se loguje.
 	// Tada zna samo svoje korisnicko ime i lozinku i to prosledjuje na backend.
 	@PostMapping("/login")
@@ -55,7 +55,7 @@ public class AuthenticationController {
 
 		// Kreiraj token za tog korisnika
 		User user = (User) authentication.getPrincipal();
-		String jwt = tokenUtils.generateToken(user.getEmail());
+		String jwt = tokenUtils.generateToken(user.getEmail(), user.getId());
 		int expiresIn = tokenUtils.getExpiredIn();
 
 		// Vrati token kao odgovor na uspesnu autentifikaciju
@@ -65,6 +65,8 @@ public class AuthenticationController {
 	// Endpoint za registraciju novog korisnika
 	@PostMapping("/signup")
 	public ResponseEntity<User> addUser(@RequestBody UserRequest userRequest, UriComponentsBuilder ucBuilder) {
+
+
 		User existUser = this.userService.findByUsername(userRequest.getEmail());
 
 		if (existUser != null) {

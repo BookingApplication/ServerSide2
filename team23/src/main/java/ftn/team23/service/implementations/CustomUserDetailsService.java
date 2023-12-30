@@ -1,7 +1,7 @@
 package ftn.team23.service.implementations;
 
 import ftn.team23.entities.User;
-import ftn.team23.repositories.IUserRepository;
+import ftn.team23.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 public class CustomUserDetailsService implements UserDetailsService {
 
 	@Autowired
-	private IUserRepository userRepository;
+	private UserRepository userRepository;
 
 	// Funkcija koja na osnovu username-a iz baze vraca objekat User-a
 	@Override

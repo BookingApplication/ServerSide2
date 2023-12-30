@@ -1,17 +1,12 @@
 package ftn.team23.controller;
 
 import ftn.team23.dto.AccountDataDTO;
-import ftn.team23.entities.Guest;
 import ftn.team23.service.implementations.GuestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collection;
-import java.util.List;
-
-@CrossOrigin(origins = "http://localhost:4200/")
 @RestController
 @RequestMapping(value = "/guest")
 public class GuestController {
@@ -26,11 +21,11 @@ public class GuestController {
 //    }
     public void getAllGuests()
     {
-       guestService.findAllGuests();
+        guestService.findAllGuests();
     }
 
     //@PostMapping(path = "/register", consumes = "application/json")
-    @PostMapping(path = "/register")
+    @PostMapping(path = "/register", consumes = "application/json")
     public ResponseEntity<AccountDataDTO> register(@RequestBody AccountDataDTO guestData) {
         AccountDataDTO result = guestService.register(guestData);
         if(result == null)

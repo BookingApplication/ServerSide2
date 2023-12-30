@@ -2,7 +2,7 @@ package ftn.team23.dto;
 
 // DTO za login
 public class JwtAuthenticationRequest {
-	
+
     private String username;
     private String password;
 

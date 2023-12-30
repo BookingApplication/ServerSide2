@@ -24,7 +24,7 @@ import java.util.List;
         pkColumnName="key_pk",
         pkColumnValue="user_data",
         valueColumnName="value_pk")
-public abstract class User implements Serializable, UserDetails {
+public class User implements Serializable, UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE, generator = "user_data_id_generator")
@@ -33,6 +33,7 @@ public abstract class User implements Serializable, UserDetails {
     @Column(unique=true)
     private String email;
     private String password;
+    private String username;
     private String name;
     private String surname;
     private String livingAddress;
@@ -81,6 +82,12 @@ public abstract class User implements Serializable, UserDetails {
     }
 
     public String getPassword() {return password;}
+
+    @Override
+    public String getUsername() {
+        return username;
+    }
+    public void SetUsername(String username) {this.username = username;}
 
     public void setPassword(String password) {
         this.password = password;
@@ -148,6 +155,11 @@ public abstract class User implements Serializable, UserDetails {
     @Override
     public boolean isCredentialsNonExpired() {
         return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return false;
     }
 
 }
