@@ -9,11 +9,7 @@ public interface IUserService {
 
     User findById(Long userId);
     List<User> findAll();
-
     User findByUsername(String name);
-
     User findByEmail(String email);
-
-
     User save(UserRequest userRequest);
 }

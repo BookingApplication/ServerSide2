@@ -1,9 +1,12 @@
 package ftn.team23.service.implementations;
 
 import ftn.team23.dto.AccountDataDTO;
+import ftn.team23.dto.UserRequest;
 import ftn.team23.entities.Guest;
+import ftn.team23.entities.User;
 import ftn.team23.repositories.IGuestRepository;
 import ftn.team23.service.interfaces.IGuestService;
+import ftn.team23.service.interfaces.ISendGridService;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,10 +18,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 @Service
 //@Scope(value= ConfigurableBeanFactory.SCOPE_PROTOTYPE)
@@ -27,16 +27,18 @@ public class GuestService implements IGuestService {
     @Autowired
     IGuestRepository repository;
 
+    @Autowired
+    ISendGridService sendGridService;
+
     @Override
     public AccountDataDTO register(AccountDataDTO guestData) {
-//        Guest found = repository.findByEmail(guestData.getEmail());
-//        Guest found = repository.findGuestByEmail(guestData.getEmail());
+
         Optional<Guest> found = repository.findByEmail(guestData.getEmail());
         if(found.isPresent()){
             return null;
         } else {
+            Guest guestToRegister = new Guest(guestData.getEmail(), guestData.getPassword(), guestData.getName(), guestData.getSurname(), guestData.getLivingAddress(), guestData.getTelephoneNumber());
             try {
-                Guest guestToRegister = new Guest(guestData.getEmail(), guestData.getPassword(), guestData.getName(), guestData.getSurname(), guestData.getLivingAddress(), guestData.getTelephoneNumber());
                 Guest result = repository.save(guestToRegister);
                 repository.flush();
                 AccountDataDTO a = new AccountDataDTO(result);
@@ -61,61 +63,39 @@ public class GuestService implements IGuestService {
         }
     }
 
-    public void findAllGuests()
+    public List<AccountDataDTO> findAllGuests()
     {
         List<Guest> guests = repository.findAll();
-        if(guests != null)
+        if(guests.isEmpty())
         {
-            System.out.println("Success on horizon.");
-
+            return null;
         }
-        System.out.println("Here.");
-        System.out.println(guests);
-        System.out.println(guests.size());
+        List<AccountDataDTO> allAccounts = new ArrayList<AccountDataDTO>();
         for (Guest g: guests) {
-            System.out.println(g.getEmail()+ g.getPassword()+g.getName()+ g.getSurname()+ g.getLivingAddress()+ g.getTelephoneNumber());
-            //testemail@example.comtestpasswordJohnDoe123 Main St, City123-456-7890
-            System.out.println(g.getId());
-            System.out.println(g.toString()); //ftn.team23.entities.Guest@6af12e6c
-//            System.out.println(g.accommodations)
-
+            AccountDataDTO accountData = new AccountDataDTO(g);
+            allAccounts.add(accountData);
+//            System.out.println(g.getEmail()+ g.getPassword()+g.getName()+ g.getSurname()+ g.getLivingAddress()+ g.getTelephoneNumber());
+//            //testemail@example.comtestpasswordJohnDoe123 Main St, City123-456-7890
+//            System.out.println(g.toString()); //ftn.team23.entities.Guest@6af12e6c
         }
+        return allAccounts;
     }
-
 
     @Override
     public void deleteGuestByEmail(String email) {
-//        Guest g = repository.findByEmail(email);
-//        Guest g = repository.findGuestByEmail(email);
         Optional<Guest> g = repository.findByEmail(email);
-        System.out.println("found guest issss: " + g);
-
         if(g.isPresent()){
             repository.deleteById(g.get().getId());
-            System.out.println("here in delete section");
         }
     }
 
     @Override
     public Guest findGuestByEmail(String email) {
+        Optional<Guest> g = repository.findByEmail(email);
+        if(g.isPresent()){
+            return g.get();
+        }
         return null;
     }
 
-    @Override
-    public boolean findByEmailAndPassword(String email, String password) {
-        return false;
-    }
-
-//    @Override
-//    public Guest findGuestByEmail(String email) {
-//        return repository.findByEmail(email);
-//    }
-
-//    @Override
-//    public boolean findByEmailAndPassword(String email, String password) {
-//        Guest g = repository.findByEmail(email);
-//        if(g!=null)
-//            return g.getPassword().equals( password);
-//        else return false;
-//    }
 }

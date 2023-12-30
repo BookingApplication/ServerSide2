@@ -4,15 +4,10 @@ package ftn.team23.dto;
 public class UserRequest {
 
 	private Long id;
-
 	private String email;
-
 	private String password;
-
 	private String name;
-
 	private String surname;
-
 	private String livingAddress;
 	private String telephoneNumber;
 
@@ -23,7 +18,6 @@ public class UserRequest {
 	public void setId(Long id) {
 		this.id = id;
 	}
-
 	public String getEmail() {
 		return email;
 	}

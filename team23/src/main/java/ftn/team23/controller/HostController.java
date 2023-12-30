@@ -4,11 +4,12 @@ import ftn.team23.dto.AccountDataDTO;
 import ftn.team23.service.implementations.HostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping(value = "/host")
+@RequestMapping(value = "/host", consumes = "application/json", produces = MediaType.APPLICATION_JSON_VALUE)
 public class HostController {
 
     @Autowired
@@ -22,7 +23,7 @@ public class HostController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         else
-            return new ResponseEntity<>(result, HttpStatus.OK);
+            return new ResponseEntity<>(result, HttpStatus.CREATED);
     }
 
     @DeleteMapping("/delete/{email}")

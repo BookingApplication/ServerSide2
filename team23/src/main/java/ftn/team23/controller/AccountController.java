@@ -6,11 +6,12 @@ import ftn.team23.service.interfaces.IAccountService;
 import org.aspectj.apache.bcel.generic.RET;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping(value = "/account")
+@RequestMapping(value = "/account", consumes = "application/json", produces = MediaType.APPLICATION_JSON_VALUE)
 public class AccountController {
 
     @Autowired

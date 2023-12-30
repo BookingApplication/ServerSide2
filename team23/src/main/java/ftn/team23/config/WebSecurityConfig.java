@@ -2,7 +2,7 @@ package ftn.team23.config;
 
 import ftn.team23.security.auth.RestAuthenticationEntryPoint;
 import ftn.team23.security.auth.TokenAuthenticationFilter;
-import ftn.team23.service.implementations.CustomUserDetailsService;
+import ftn.team23.service.implementations.LoginService;
 import ftn.team23.util.TokenUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -44,7 +44,7 @@ public class WebSecurityConfig {
     // Servis koji se koristi za citanje podataka o korisnicima aplikacije
     @Bean
     public UserDetailsService userDetailsService() {
-        return new CustomUserDetailsService();
+        return new LoginService();
     }
 
     // Implementacija PasswordEncoder-a koriscenjem BCrypt hashing funkcije.
@@ -85,12 +85,22 @@ public class WebSecurityConfig {
                     .requestMatchers(new AntPathRequestMatcher("/api/foo")).permitAll()
                     //Da nam lepsu poruku vrati
                     .requestMatchers(new AntPathRequestMatcher("/error")).permitAll()
-                    .requestMatchers(new AntPathRequestMatcher("/guest")).permitAll()
-                    .requestMatchers(new AntPathRequestMatcher("/host")).permitAll()
+                    .requestMatchers(new AntPathRequestMatcher("/guest/register")).permitAll()
+                    .requestMatchers(new AntPathRequestMatcher("/host/register")).permitAll()
                     .requestMatchers(new AntPathRequestMatcher("/api/whoami")).hasRole("USER")
                     .anyRequest().authenticated();
-        });
-        //izmena - u starija verzija: token bassed authentication
+           });
+//           http.authorizeRequests(request -> {
+//                request.antMatchers("/auth/login").permitAll()
+//                        .antMatchers("/api/foo").permitAll()
+//                        .antMatchers("/error").permitAll()
+//                        .antMatchers("/guest/register").permitAll()
+//                        .antMatchers("/host/register").permitAll()
+//                        .antMatchers("/api/whoami").hasRole("USER")
+//                        .anyRequest().authenticated();
+//            });
+
+        //izmena - starija verzija: token bassed authentication
         http.addFilterBefore(new TokenAuthenticationFilter(tokenUtils, userDetailsService()), UsernamePasswordAuthenticationFilter.class);
         http.authenticationProvider(authenticationProvider());
         return http.build();
@@ -105,7 +115,7 @@ public class WebSecurityConfig {
 
                 // Ovim smo dozvolili pristup statickim resursima aplikacije
                 .requestMatchers(HttpMethod.GET, "/", "/webjars/*", "/*.html", "favicon.ico",
-                        "/*/*.html", "/*/*.css", "/*/*.js", "/guest/*");
+                        "/*/*.html", "/*/*.css", "/*/*.js");
 
     }
     //Podesavanja CORS-a

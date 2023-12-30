@@ -15,7 +15,7 @@ import java.util.Map;
 
 // Primer kontrolera cijim metodama mogu pristupiti samo autorizovani korisnici
 @RestController
-@RequestMapping(value = "/api", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/api", consumes = "application/json", produces = MediaType.APPLICATION_JSON_VALUE)
 @CrossOrigin
 public class UserController {
 

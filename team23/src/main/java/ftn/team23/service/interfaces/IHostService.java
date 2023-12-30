@@ -8,7 +8,4 @@ public interface IHostService {
      AccountDataDTO register(AccountDataDTO guestData);
      void deleteHostByEmail(String email);
      Host findHostByEmail(String email);
-     boolean findByEmailAndPassword(String email, String password);
-
-
 }
