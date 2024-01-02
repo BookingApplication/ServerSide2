@@ -1,16 +1,12 @@
 package ftn.team23.controller;
 
 import ftn.team23.dto.AccountDataDTO;
-import ftn.team23.dto.UserRequest;
-import ftn.team23.entities.User;
-import ftn.team23.exception.ResourceConflictException;
 import ftn.team23.service.implementations.GuestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.util.UriComponentsBuilder;
 
 @CrossOrigin
 @RestController
@@ -27,8 +23,8 @@ public class GuestController {
     }
 
     @PostMapping(path = "/register")
-    public ResponseEntity<AccountDataDTO> register(@RequestBody AccountDataDTO guestData) {
-        AccountDataDTO result = guestService.register(guestData);
+    public ResponseEntity<AccountDataDTO> signup(@RequestBody AccountDataDTO guestData) {
+        AccountDataDTO result = guestService.signup(guestData);
         if(result == null)
         {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -54,7 +50,6 @@ public class GuestController {
 //    }
 
 
-    //for later use, replace email with jwt logic
     @DeleteMapping("/delete/{email}")
     public ResponseEntity<Void> deleteAccount(@PathVariable String email) {
         System.out.println("email received: " + email);

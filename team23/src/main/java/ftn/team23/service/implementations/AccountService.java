@@ -7,8 +7,6 @@ import ftn.team23.service.interfaces.IAccountService;
 import ftn.team23.service.interfaces.IGuestService;
 import ftn.team23.service.interfaces.IHostService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.config.ConfigurableBeanFactory;
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -33,13 +31,13 @@ public class AccountService implements IAccountService {
     public AccountDataDTO updateAccountData(AccountDataDTO a) {
         Guest g = guestService.findGuestByEmail(a.getEmail());
         if (g!=null) {
-            AccountDataDTO result = guestService.register(a);
+            AccountDataDTO result = guestService.signup(a);
             return result;
         }
 
         Host h = hostService.findHostByEmail(a.getEmail());
         if(h!=null) {
-            AccountDataDTO result = hostService.register(a);
+            AccountDataDTO result = hostService.signup(a);
             return result;
         }
         return null;

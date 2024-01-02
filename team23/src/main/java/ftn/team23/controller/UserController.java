@@ -38,7 +38,7 @@ public class UserController {
 	}
 
 	@GetMapping("/whoami")
-	@PreAuthorize("hasRole('USER')")
+	@PreAuthorize("hasRole('GUEST')")
 	public User user(Principal user) {
 		return this.userService.findByUsername(user.getName());
 	}

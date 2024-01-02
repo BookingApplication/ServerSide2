@@ -29,8 +29,6 @@ public class User implements Serializable, UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE, generator = "user_data_id_generator")
     private Long id;
-
-    @Column(unique=true)
     private String email;
     private String password;
     private String username;
@@ -51,7 +49,6 @@ public class User implements Serializable, UserDetails {
     /*@Column(name = "deleted")
     private boolean deleted;*/
 
-    //private boolean isEmailVerified;
     public User() {
     }
 
@@ -62,7 +59,6 @@ public class User implements Serializable, UserDetails {
         this.surname = surname;
         this.livingAddress = livingAddress;
         this.telephoneNumber = telephoneNumber;
-        //this.isEmailVerified = isEmailVerified;
     }
 
     public Long getId() {
@@ -85,7 +81,7 @@ public class User implements Serializable, UserDetails {
 
     @Override
     public String getUsername() {
-        return username;
+        return email;
     }
     public void SetUsername(String username) {this.username = username;}
 
@@ -131,6 +127,13 @@ public class User implements Serializable, UserDetails {
 
     public void setLastPasswordResetDate(Timestamp lastPasswordResetDate) {
         this.lastPasswordResetDate = lastPasswordResetDate;
+    }
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
+    }
+
+    public List<Role> getRoles() {
+        return roles;
     }
 
     @JsonIgnore

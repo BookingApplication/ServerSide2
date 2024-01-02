@@ -87,18 +87,9 @@ public class WebSecurityConfig {
                     .requestMatchers(new AntPathRequestMatcher("/error")).permitAll()
                     .requestMatchers(new AntPathRequestMatcher("/guest/register")).permitAll()
                     .requestMatchers(new AntPathRequestMatcher("/host/register")).permitAll()
-                    .requestMatchers(new AntPathRequestMatcher("/api/whoami")).hasRole("USER")
+                    .requestMatchers(new AntPathRequestMatcher("/api/whoami")).hasRole("GUEST")
                     .anyRequest().authenticated();
            });
-//           http.authorizeRequests(request -> {
-//                request.antMatchers("/auth/login").permitAll()
-//                        .antMatchers("/api/foo").permitAll()
-//                        .antMatchers("/error").permitAll()
-//                        .antMatchers("/guest/register").permitAll()
-//                        .antMatchers("/host/register").permitAll()
-//                        .antMatchers("/api/whoami").hasRole("USER")
-//                        .anyRequest().authenticated();
-//            });
 
         //izmena - starija verzija: token bassed authentication
         http.addFilterBefore(new TokenAuthenticationFilter(tokenUtils, userDetailsService()), UsernamePasswordAuthenticationFilter.class);
@@ -110,7 +101,7 @@ public class WebSecurityConfig {
         // Autentifikacija ce biti ignorisana ispod navedenih putanja (kako bismo ubrzali pristup resursima)
         // Zahtevi koji se mecuju za web.ignoring().antMatchers() nemaju pristup SecurityContext-u
         // Dozvoljena POST metoda na ruti /auth/login, za svaki drugi tip HTTP metode greska je 401 Unauthorized
-        return (web) -> web.ignoring()//.requestMatchers(HttpMethod.POST, "/auth/login")
+        return (web) -> web.ignoring().requestMatchers(HttpMethod.POST, "/auth/login")
 
 
                 // Ovim smo dozvolili pristup statickim resursima aplikacije

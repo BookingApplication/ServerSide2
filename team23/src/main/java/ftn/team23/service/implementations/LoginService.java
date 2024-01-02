@@ -26,11 +26,13 @@ public class LoginService implements UserDetailsService {
 		Guest g = guestService.findGuestByEmail(username);
 		if(g!= null) {
 			user = new Guest(g.getEmail(), g.getPassword(), g.getName(), g.getSurname(), g.getLivingAddress(), g.getTelephoneNumber());
+			user.setRoles(g.getRoles());
 			return user;
 		}
 		Host h = hostService.findHostByEmail(username);
 		if(h!=null) {
 			user = new Host(h.getEmail(), h.getPassword(), h.getName(), h.getSurname(), h.getLivingAddress(), h.getTelephoneNumber());
+			user.setRoles(g.getRoles());
 			return user;
 		}
 		else{

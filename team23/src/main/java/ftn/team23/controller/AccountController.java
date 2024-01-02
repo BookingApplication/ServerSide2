@@ -1,9 +1,7 @@
 package ftn.team23.controller;
 
 import ftn.team23.dto.AccountDataDTO;
-import ftn.team23.service.implementations.AccountService;
 import ftn.team23.service.interfaces.IAccountService;
-import org.aspectj.apache.bcel.generic.RET;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -18,6 +16,7 @@ public class AccountController {
     IAccountService service;
 
     @GetMapping(value = "/{email}")
+
     ResponseEntity<AccountDataDTO> getAccountData(@PathVariable String email)
     {
        AccountDataDTO result = service.getAccountData(email);

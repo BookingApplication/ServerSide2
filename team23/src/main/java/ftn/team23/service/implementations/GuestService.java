@@ -3,10 +3,12 @@ package ftn.team23.service.implementations;
 import ftn.team23.dto.AccountDataDTO;
 import ftn.team23.dto.UserRequest;
 import ftn.team23.entities.Guest;
+import ftn.team23.entities.Role;
 import ftn.team23.entities.User;
 import ftn.team23.repositories.IGuestRepository;
 import ftn.team23.service.interfaces.IGuestService;
 import ftn.team23.service.interfaces.ISendGridService;
+import ftn.team23.service.interfaces.RoleService;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +17,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -30,14 +33,23 @@ public class GuestService implements IGuestService {
     @Autowired
     ISendGridService sendGridService;
 
+    @Autowired
+    PasswordEncoder passwordEncoder;
+
+    @Autowired
+    RoleService roleService;
+
     @Override
-    public AccountDataDTO register(AccountDataDTO guestData) {
+    public AccountDataDTO signup(AccountDataDTO guestData) {
 
         Optional<Guest> found = repository.findByEmail(guestData.getEmail());
         if(found.isPresent()){
             return null;
         } else {
-            Guest guestToRegister = new Guest(guestData.getEmail(), guestData.getPassword(), guestData.getName(), guestData.getSurname(), guestData.getLivingAddress(), guestData.getTelephoneNumber());
+            String encryptedPassword =  passwordEncoder.encode(guestData.getPassword());
+            Guest guestToRegister = new Guest(guestData.getEmail(), encryptedPassword, guestData.getName(), guestData.getSurname(), guestData.getLivingAddress(), guestData.getTelephoneNumber());
+            List<Role> roles = roleService.findByName("ROLE_GUEST");
+            guestToRegister.setRoles(roles);
             try {
                 Guest result = repository.save(guestToRegister);
                 repository.flush();
@@ -94,6 +106,33 @@ public class GuestService implements IGuestService {
         Optional<Guest> g = repository.findByEmail(email);
         if(g.isPresent()){
             return g.get();
+        }
+        return null;
+    }
+
+    @Override
+    public Guest findById(Long userId) {
+        Optional<Guest> found = repository.findById(userId);
+        if(found.isPresent()) {
+            return found.get();
+        }
+        return null;
+    }
+
+    @Override
+    public List<Guest> findAll() {
+        List<Guest> guests = repository.findAll();
+        if(guests.isEmpty()) {
+            return null;
+        }
+        return guests;
+    }
+
+    @Override
+    public Guest findByUsername(String username) {
+        Optional<Guest> found = repository.findByUsername(username);
+        if(found.isPresent()){
+            return found.get();
         }
         return null;
     }

@@ -16,8 +16,8 @@ public class HostController {
     private HostService hostService;
 
     @PostMapping(path = "/register")
-    public ResponseEntity<AccountDataDTO> register(@RequestBody AccountDataDTO guestData) {
-        AccountDataDTO result = hostService.register(guestData);
+    public ResponseEntity<AccountDataDTO> signup(@RequestBody AccountDataDTO guestData) {
+        AccountDataDTO result = hostService.signup(guestData);
         if(result == null)
         {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
