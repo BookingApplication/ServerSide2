@@ -82,11 +82,13 @@ public class WebSecurityConfig {
         http.exceptionHandling(exceptionHandling -> exceptionHandling.authenticationEntryPoint(restAuthenticationEntryPoint));
         http.authorizeHttpRequests(request -> {
             request.requestMatchers(new AntPathRequestMatcher("/auth/login")).permitAll()
-                    .requestMatchers(new AntPathRequestMatcher("/api/foo")).permitAll()
                     //Da nam lepsu poruku vrati
                     .requestMatchers(new AntPathRequestMatcher("/error")).permitAll()
                     .requestMatchers(new AntPathRequestMatcher("/guest/register")).permitAll()
                     .requestMatchers(new AntPathRequestMatcher("/host/register")).permitAll()
+                    .requestMatchers(new AntPathRequestMatcher("/guest/verify/**")).permitAll()
+                    .requestMatchers(new AntPathRequestMatcher("/host/verify/**")).permitAll()
+                    .requestMatchers(new AntPathRequestMatcher("/administrator/verify/**")).permitAll()
                     .requestMatchers(new AntPathRequestMatcher("/api/whoami")).hasRole("GUEST")
                     .anyRequest().authenticated();
            });
@@ -102,11 +104,11 @@ public class WebSecurityConfig {
         // Zahtevi koji se mecuju za web.ignoring().antMatchers() nemaju pristup SecurityContext-u
         // Dozvoljena POST metoda na ruti /auth/login, za svaki drugi tip HTTP metode greska je 401 Unauthorized
         return (web) -> web.ignoring().requestMatchers(HttpMethod.POST, "/auth/login")
-
-
+                .requestMatchers(HttpMethod.GET, "/guest/verify/**")
+                .requestMatchers(HttpMethod.GET, "/host/verify/**")
                 // Ovim smo dozvolili pristup statickim resursima aplikacije
                 .requestMatchers(HttpMethod.GET, "/", "/webjars/*", "/*.html", "favicon.ico",
-                        "/*/*.html", "/*/*.css", "/*/*.js");
+                        "/*/*.html", "/*/*.css", "/*/*.js","/guest/verify/**","/host/verify/**");
 
     }
     //Podesavanja CORS-a

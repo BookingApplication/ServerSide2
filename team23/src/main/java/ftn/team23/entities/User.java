@@ -2,6 +2,11 @@ package ftn.team23.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -10,14 +15,12 @@ import java.sql.Timestamp;
 import java.util.Collection;
 import java.util.List;
 
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "user_data")
-////opcija 2, uz identity generated value
-//@Inheritance(strategy = InheritanceType.JOINED)
-////opcija 3, uz identity generated value
-//@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-////
-
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @TableGenerator(name="user_data_id_generator",
         table="primary_keys",
@@ -39,6 +42,7 @@ public class User implements Serializable, UserDetails {
     private Timestamp lastPasswordResetDate;
     private boolean activated;      //atribut koji oznacava da li je nalog aktiviran
     private String codeActivation;  //kod koji je poslat u emailu za aktivaciju naloga
+    private Timestamp accountVerificationRequestDate;   //datum slanja zahteva za aktivaciju naloga
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_role",
@@ -46,11 +50,9 @@ public class User implements Serializable, UserDetails {
             inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
     private List<Role> roles;
 
-    /*@Column(name = "deleted")
-    private boolean deleted;*/
+    @Column(name = "deleted")
+    private boolean deleted;
 
-    public User() {
-    }
 
     public User(String email, String password, String name, String surname, String livingAddress, String telephoneNumber) {
         this.email = email;
@@ -61,79 +63,8 @@ public class User implements Serializable, UserDetails {
         this.telephoneNumber = telephoneNumber;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPassword() {return password;}
-
-    @Override
     public String getUsername() {
         return email;
-    }
-    public void SetUsername(String username) {this.username = username;}
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getSurname() {
-        return surname;
-    }
-
-    public void setSurname(String surname) {
-        this.surname = surname;
-    }
-
-    public String getLivingAddress() {
-        return livingAddress;
-    }
-
-    public void setLivingAddress(String livingAddress) {
-        this.livingAddress = livingAddress;
-    }
-
-    public String getTelephoneNumber() {
-        return telephoneNumber;
-    }
-
-    public void setTelephoneNumber(String telephoneNumber) {
-        this.telephoneNumber = telephoneNumber;
-    }
-
-    public Timestamp getLastPasswordResetDate() {
-        return lastPasswordResetDate;
-    }
-
-    public void setLastPasswordResetDate(Timestamp lastPasswordResetDate) {
-        this.lastPasswordResetDate = lastPasswordResetDate;
-    }
-    public void setRoles(List<Role> roles) {
-        this.roles = roles;
-    }
-
-    public List<Role> getRoles() {
-        return roles;
     }
 
     @JsonIgnore
@@ -162,7 +93,8 @@ public class User implements Serializable, UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return false;
-    }
+//        return isActivated();
+        return true;
 
+    }
 }

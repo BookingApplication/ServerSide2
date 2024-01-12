@@ -1,5 +1,6 @@
 package ftn.team23.util;
 
+import ftn.team23.entities.Role;
 import ftn.team23.entities.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
@@ -11,6 +12,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
+import java.util.List;
 
 // Utility klasa za rad sa JSON Web Tokenima
 @Component
@@ -25,7 +27,7 @@ public class TokenUtils {
 	public String SECRET;
 
 	// Period vazenja tokena - 30 minuta
-	@Value("1800000")
+	@Value("18000000")
 	private int EXPIRES_IN;
 
 	// Naziv headera kroz koji ce se prosledjivati JWT u komunikaciji server-klijent
@@ -53,11 +55,12 @@ public class TokenUtils {
 	 * @param username Korisničko ime korisnika kojem se token izdaje
 	 * @return JWT token
 	 */
-	public String generateToken(String username, Long id) {
+	public String generateToken(String username, Long id, List<Role> roles) {
 		return Jwts.builder()
 				.setIssuer(APP_NAME)
 				.setSubject(username)
 				.claim("Id", id)
+				.claim("role", roles.get(0).getName())
 				.setAudience(generateAudience())
 				.setIssuedAt(new Date())
 				.setExpiration(generateExpirationDate())
