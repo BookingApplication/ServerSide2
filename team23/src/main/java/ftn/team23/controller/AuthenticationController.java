@@ -6,6 +6,7 @@ import ftn.team23.dto.UserTokenState;
 import ftn.team23.entities.User;
 import ftn.team23.service.implementations.UserService;
 import ftn.team23.util.TokenUtils;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

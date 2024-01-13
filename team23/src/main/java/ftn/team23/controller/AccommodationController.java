@@ -36,8 +36,8 @@ public class AccommodationController {
     }
 
 
-    @PreAuthorize("hasRole('HOST')")
-    @GetMapping(value="/getDetails/{id}", produces= {MediaType.MULTIPART_FORM_DATA_VALUE})
+    @PreAuthorize("hasAnyRole('HOST','GUEST','ADMIN')")
+    @GetMapping(value="/getDetails/{id}", produces= {MediaType.MULTIPART_FORM_DATA_VALUE, MediaType.APPLICATION_JSON_VALUE})
     public AccommodationWithImagesDTO GetAccommodationDetails(@PathVariable Long id){
         AccommodationWithImagesDTO result = service.getAccommodationDetails(id);
         return result;

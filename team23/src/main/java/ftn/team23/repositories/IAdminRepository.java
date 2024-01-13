@@ -17,9 +17,10 @@ public interface IAdminRepository extends JpaRepository<Administrator, Long> {
     Optional<Administrator> findByEmail(String email);
     Optional<Administrator> findByEmailAndPassword(String email, String password);
     Optional<Administrator> findByUsername(String username);
+    Optional<Administrator> findByCodeActivation(String codeActivation);
 
     @Transactional
     @Modifying
-    @Query("UPDATE Administrator a SET a.activated = :activated WHERE a.email = :email")
-    void updateActivationStatusByEmail(String email, Boolean activated);
+    @Query("UPDATE Administrator a SET a.activated = :activated WHERE a.codeActivation = :codeActivation")
+    void updateActivationStatusByCodeActivation(String codeActivation, Boolean activated);
 }

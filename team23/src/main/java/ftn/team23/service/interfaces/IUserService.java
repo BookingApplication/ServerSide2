@@ -4,7 +4,8 @@ import ftn.team23.dto.UserRequest;
 import ftn.team23.entities.Administrator;
 import ftn.team23.entities.Guest;
 import ftn.team23.entities.Host;
-
+//import jakarta.mail.MessagingException;
+//import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 public interface IUserService {
@@ -15,7 +16,7 @@ public interface IUserService {
 
     UserRequest signupAsGuest(UserRequest guestData);
     UserRequest updateGuest(UserRequest userRequest);
-    void verifyGuest(String email, String code);
+    void verifyGuest(String code);
     boolean deleteGuest();
     void deleteGuestByEmail(String email);
     Guest findGuestByEmail(String email);
@@ -24,7 +25,7 @@ public interface IUserService {
 
     UserRequest signupAsHost(UserRequest hostData);
     UserRequest updateHost(UserRequest userRequest);
-    void verifyHost(String email, String code);
+    void verifyHost(String code);
     boolean deleteHost();
     void deleteHostByEmail(String email);
     Host findHostByEmail(String email);
@@ -32,11 +33,16 @@ public interface IUserService {
     List<UserRequest> findAllHosts();
 
     UserRequest updateAdmin(UserRequest userRequest);
-    void verifyAdmin(String email, String code);
+    void verifyAdmin(String code);
     void deleteAdminByEmail(String email);
     Administrator findAdminByEmail(String email);
     Administrator findAdminById(Long userId);
     List<UserRequest> findAllAdmins();
+
+//    void registerAsGuest(UserRequest userRequest, String siteURL) throws UnsupportedEncodingException, MessagingException;
+//    void registerAsHost(UserRequest userRequest, String siteURL) throws UnsupportedEncodingException, MessagingException;
+//    void registerAsAdmin(UserRequest userRequest, String siteURL) throws UnsupportedEncodingException, MessagingException;
+
 
 //    User findById(Long userId);
 //    List<User> findAll();

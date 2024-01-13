@@ -8,22 +8,29 @@ import ftn.team23.repositories.IHostRepository;
 import ftn.team23.service.interfaces.ISendGridService;
 import ftn.team23.service.interfaces.IUserService;
 import ftn.team23.service.interfaces.RoleService;
+//import jakarta.mail.internet.MimeMessage;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
+import org.modelmapper.internal.bytebuddy.utility.RandomString;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+//import org.springframework.mail.javamail.JavaMailSender;
+//import org.springframework.mail.javamail.MimeMessageHelper;
+//import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+//import org.springframework.security.core.Authentication;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+//import jakarta.mail.MessagingException;
+//import java.io.UnsupportedEncodingException;
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 @Service
 public class UserService implements IUserService {
@@ -41,7 +48,6 @@ public class UserService implements IUserService {
     PasswordEncoder passwordEncoder;
     @Autowired
     RoleService roleService;
-
 
     public boolean IsEmailUniqueAcrossAllTables(String email) {
         Optional<Guest> guest = guestRepository.findByEmail(email);
@@ -96,58 +102,57 @@ public class UserService implements IUserService {
     @Override
     public UserRequest signupAsGuest(UserRequest userRequest) {
         Optional<Guest> found = guestRepository.findByEmail(userRequest.getEmail());
-        if (found.isPresent()) {
-            return null;
-        } else {
-            String verificationCode = String.valueOf(Math.floor(100000 + Math.random() * 900000));
-            String address = "http://localhost:8080/guest/verify";
-            String verificationLink = String.format("<a href=\"%s/%s/%s\">", address, userRequest.getEmail(), verificationCode);
-            //http://localhost:8080/guest/verify/somemail@mail/123322
-            try {
-                sendGridService.sendVerificationEmail(userRequest.getEmail(), verificationLink);
-                found.get().setAccountVerificationRequestDate(new Timestamp(System.currentTimeMillis()));
-            } catch (Exception e) {
-                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.toString());
+
+        String verificationCode = RandomString.make(64);
+        String address = "http://localhost:8080/guest/verify?code=";
+        String verificationLink = String.format("<a href=\"%s%s\">", address, verificationCode);
+        //http://localhost:8080/guest/verify?code=unique-code
+
+        try {
+            sendGridService.sendVerificationEmail(userRequest.getEmail(), verificationLink);
+            found.get().setAccountVerificationRequestDate(new Timestamp(System.currentTimeMillis()));
+        } catch (Exception e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.toString());
+        }
+
+        String encryptedPassword = passwordEncoder.encode(userRequest.getPassword());
+        Guest guestToRegister = new Guest(userRequest.getEmail(), encryptedPassword, userRequest.getName(), userRequest.getSurname(), userRequest.getLivingAddress(), userRequest.getTelephoneNumber());
+        List<Role> roles = roleService.findByName("ROLE_GUEST");
+        guestToRegister.setRoles(roles);
+
+        try {
+            Guest result = guestRepository.save(guestToRegister);
+            guestRepository.flush();
+            return new UserRequest(result);
+        } catch (RuntimeException ex) {
+            Throwable e = ex;
+            Throwable c = null;
+            while ((e != null) && !((c = ex.getCause()) instanceof ConstraintViolationException)) {
+                e = (RuntimeException) c;
             }
-            String encryptedPassword = passwordEncoder.encode(userRequest.getPassword());
-            Guest guestToRegister = new Guest(userRequest.getEmail(), encryptedPassword, userRequest.getName(), userRequest.getSurname(), userRequest.getLivingAddress(), userRequest.getTelephoneNumber());
-            List<Role> roles = roleService.findByName("ROLE_GUEST");
-            guestToRegister.setRoles(roles);
-            try {
-                Guest result = guestRepository.save(guestToRegister);
-                guestRepository.flush();
-                UserRequest a = new UserRequest(result);
-                return a;
-            } catch (RuntimeException ex) {
-                Throwable e = ex;
-                Throwable c = null;
-                while ((e != null) && !((c = ex.getCause()) instanceof ConstraintViolationException)) {
-                    e = (RuntimeException) c;
+            if ((c != null) && (c instanceof ConstraintViolationException)) {
+                ConstraintViolationException c2 = (ConstraintViolationException) c;
+                Set<ConstraintViolation<?>> errors = c2.getConstraintViolations();
+                StringBuilder sb = new StringBuilder(1000);
+                for (ConstraintViolation<?> error : errors) {
+                    sb.append(error.getMessage() + "\n");
                 }
-                if ((c != null) && (c instanceof ConstraintViolationException)) {
-                    ConstraintViolationException c2 = (ConstraintViolationException) c;
-                    Set<ConstraintViolation<?>> errors = c2.getConstraintViolations();
-                    StringBuilder sb = new StringBuilder(1000);
-                    for (ConstraintViolation<?> error : errors) {
-                        sb.append(error.getMessage() + "\n");
-                    }
-                    throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, sb.toString());
-                }
-                throw ex;
+                throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, sb.toString());
             }
+            throw ex;
         }
     }
 
     @Override
-    public void verifyGuest(String email, String code) {
-        Optional<Guest> found = guestRepository.findByEmail(email);
+    public void verifyGuest(String code) {
+        Optional<Guest> found = guestRepository.findByCodeActivation(code);
         if (found.isPresent()) {
             long currentTime = new Timestamp(System.currentTimeMillis()).getTime();
             long requestSentTime = found.get().getAccountVerificationRequestDate().getTime();
             double hoursPassed = (double) (currentTime - requestSentTime) / 1000 * 60 * 60;
             if (found.get().getCodeActivation().equals(code) && hoursPassed <= 24) {
                 Boolean activated = true;
-                guestRepository.updateActivationStatusByEmail(email, activated);
+                guestRepository.updateActivationStatusByCodeActivation(code, activated);
             }
         }
     }
@@ -169,6 +174,7 @@ public class UserService implements IUserService {
 
         if (!encodedPassword.equals(found.get().getPassword()))
             guestToUpdate.setLastPasswordResetDate(new Timestamp(System.currentTimeMillis()));
+
         try {
             Guest result = guestRepository.save(guestToUpdate);
             guestRepository.flush();
@@ -255,45 +261,43 @@ public class UserService implements IUserService {
     @Override
     public UserRequest signupAsHost(UserRequest userRequest) {
         Optional<Host> found = hostRepository.findByEmail(userRequest.getEmail());
-        if (found.isPresent()) {
-            return null;
-        } else {
-            String verificationCode = String.valueOf(Math.floor(100000 + Math.random() * 900000));
-            String address = "http://localhost:8080/host/verify";
-            String verificationLink = String.format("<a href=\"%s/%s/%s\">", address, userRequest.getEmail(), verificationCode);
-            //http://localhost:8080/host/verify/somemail@mail/333555
-            try {
-                sendGridService.sendVerificationEmail(userRequest.getEmail(), verificationLink);
-                found.get().setAccountVerificationRequestDate(new Timestamp(System.currentTimeMillis()));
-            } catch (Exception e) {
-                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.toString());
+
+        String verificationCode = RandomString.make(64);
+        String address = "http://localhost:8080/host/verify?code=";
+        String verificationLink = String.format("<a href=\"%s%s\">", address, verificationCode);
+
+        try {
+            sendGridService.sendVerificationEmail(userRequest.getEmail(), verificationLink);
+            found.get().setAccountVerificationRequestDate(new Timestamp(System.currentTimeMillis()));
+        } catch (Exception e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.toString());
+        }
+
+        String encryptedPassword = passwordEncoder.encode(userRequest.getPassword());
+        Host hostToRegister = new Host(userRequest.getEmail(), encryptedPassword, userRequest.getName(), userRequest.getSurname(), userRequest.getLivingAddress(), userRequest.getTelephoneNumber());
+        List<Role> roles = roleService.findByName("ROLE_HOST");
+        hostToRegister.setRoles(roles);
+
+        try {
+            Host result = hostRepository.save(hostToRegister);
+            hostRepository.flush();
+            return new UserRequest(result);
+        } catch (RuntimeException ex) {
+            Throwable e = ex;
+            Throwable c = null;
+            while ((e != null) && !((c = ex.getCause()) instanceof ConstraintViolationException)) {
+                e = (RuntimeException) c;
             }
-            String encryptedPassword = passwordEncoder.encode(userRequest.getPassword());
-            Host hostToRegister = new Host(userRequest.getEmail(), encryptedPassword, userRequest.getName(), userRequest.getSurname(), userRequest.getLivingAddress(), userRequest.getTelephoneNumber());
-            List<Role> roles = roleService.findByName("ROLE_GUEST");
-            hostToRegister.setRoles(roles);
-            try {
-                Host result = hostRepository.save(hostToRegister);
-                hostRepository.flush();
-                UserRequest a = new UserRequest(result);
-                return a;
-            } catch (RuntimeException ex) {
-                Throwable e = ex;
-                Throwable c = null;
-                while ((e != null) && !((c = ex.getCause()) instanceof ConstraintViolationException)) {
-                    e = (RuntimeException) c;
+            if ((c != null) && (c instanceof ConstraintViolationException)) {
+                ConstraintViolationException c2 = (ConstraintViolationException) c;
+                Set<ConstraintViolation<?>> errors = c2.getConstraintViolations();
+                StringBuilder sb = new StringBuilder(1000);
+                for (ConstraintViolation<?> error : errors) {
+                    sb.append(error.getMessage() + "\n");
                 }
-                if ((c != null) && (c instanceof ConstraintViolationException)) {
-                    ConstraintViolationException c2 = (ConstraintViolationException) c;
-                    Set<ConstraintViolation<?>> errors = c2.getConstraintViolations();
-                    StringBuilder sb = new StringBuilder(1000);
-                    for (ConstraintViolation<?> error : errors) {
-                        sb.append(error.getMessage() + "\n");
-                    }
-                    throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, sb.toString());
-                }
-                throw ex;
+                throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, sb.toString());
             }
+            throw ex;
         }
     }
 
@@ -341,15 +345,15 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public void verifyHost(String email, String code) {
-        Optional<Host> found = hostRepository.findByEmail(email);
+    public void verifyHost(String code) {
+        Optional<Host> found = hostRepository.findByCodeActivation(code);
         if (found.isPresent()) {
             long currentTime = new Timestamp(System.currentTimeMillis()).getTime();
             long requestSentTime = found.get().getAccountVerificationRequestDate().getTime();
             double hoursPassed = (double) (currentTime - requestSentTime) / 1000 * 60 * 60;
             if (found.get().getCodeActivation().equals(code) && hoursPassed <= 24) {
                 Boolean activated = true;
-                hostRepository.updateActivationStatusByEmail(email, activated);
+                hostRepository.updateActivationStatusByCodeActivation(code, activated);
             }
         }
     }
@@ -444,15 +448,15 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public void verifyAdmin(String email, String code) {
-        Optional<Administrator> found = adminRepository.findByEmail(email);
+    public void verifyAdmin(String code) {
+        Optional<Administrator> found = adminRepository.findByCodeActivation(code);
         if (found.isPresent()) {
             long currentTime = new Timestamp(System.currentTimeMillis()).getTime();
             long requestSentTime = found.get().getAccountVerificationRequestDate().getTime();
             double hoursPassed = (double) (currentTime - requestSentTime) / 1000 * 60 * 60;
             if (found.get().getCodeActivation().equals(code) && hoursPassed <= 24) {
                 Boolean activated = true;
-                adminRepository.updateActivationStatusByEmail(email, activated);
+                adminRepository.updateActivationStatusByCodeActivation(code, activated);
             }
         }
     }

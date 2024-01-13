@@ -17,10 +17,10 @@ public interface IGuestRepository extends JpaRepository<Guest, Long>{
    Optional<Guest> findByEmail(String email);
    Optional<Guest> findByEmailAndPassword(String email, String password);
    Optional<Guest> findByUsername(String username);
+   Optional<Guest> findByCodeActivation(String codeActivation);
 
    @Transactional
    @Modifying
-   @Query("UPDATE Guest g SET g.activated = :activated WHERE g.email = :email")
-   void updateActivationStatusByEmail(String email, Boolean activated);
+   @Query("UPDATE Guest g SET g.activated = :activated WHERE g.codeActivation = :codeActivation")
+   void updateActivationStatusByCodeActivation(String codeActivation, Boolean activated);
 }
-

@@ -6,6 +6,7 @@ import ftn.team23.service.interfaces.IAccommodationService;
 import ftn.team23.service.interfaces.IUserService;
 import org.apache.http.protocol.HTTP;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
@@ -20,8 +21,8 @@ public class AdministratorController {
     @Autowired
     IUserService userService;
 
-    @GetMapping(path = "/verify/{email}/{code}")
-    public void verifyEmail(@PathVariable String email, @PathVariable String code){
-        userService.verifyGuest(email, code);
+    @GetMapping(path = "/verify")
+    public void verifyEmail(@Param("code") String code){
+        userService.verifyAdmin(code);
     }
 }

@@ -231,8 +231,7 @@ public class AccommodationService implements IAccommodationService {
     {
         byte[] bytes = file.getBytes();
         String name = file.getOriginalFilename();
-        String abspath = "/home/user1/Desktop/SIIT/github-direktorijumi/SERVER/team23/src/main/resources/static/images";
-        String imagePath = Paths.get(abspath, name).toString();
+        String imagePath = Paths.get(uploadPath, name).toString();
         String imageType = file.getContentType();
 
         Image image = new Image(imagePath, name, imageType);

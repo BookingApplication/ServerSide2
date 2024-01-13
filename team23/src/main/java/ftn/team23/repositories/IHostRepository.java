@@ -17,9 +17,10 @@ public interface IHostRepository extends JpaRepository<Host, Long>{
     Optional<Host> findByEmail(String email);
     Optional<Host> findByEmailAndPassword(String email, String password);
     Optional<Host> findByUsername(String username);
+    Optional<Host> findByCodeActivation(String codeActivation);
 
     @Transactional
     @Modifying
-    @Query("UPDATE Host h SET h.activated = :activated WHERE h.email = :email")
-    void updateActivationStatusByEmail(String email, Boolean activated);
+    @Query("UPDATE Host h SET h.activated = :activated WHERE h.codeActivation = :codeActivation")
+    void updateActivationStatusByCodeActivation(String codeActivation, Boolean activated);
 }
