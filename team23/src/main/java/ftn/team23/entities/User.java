@@ -43,6 +43,7 @@ public class User implements Serializable, UserDetails {
     private boolean activated;      //atribut koji oznacava da li je nalog aktiviran
     private String codeActivation;  //kod koji je poslat u emailu za aktivaciju naloga
     private Timestamp accountVerificationRequestDate;   //datum slanja zahteva za aktivaciju naloga
+    private String profilePicture;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_role",
@@ -95,6 +96,5 @@ public class User implements Serializable, UserDetails {
     public boolean isEnabled() {
 //        return isActivated();
         return true;
-
     }
 }

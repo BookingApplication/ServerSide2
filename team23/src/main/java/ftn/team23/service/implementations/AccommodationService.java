@@ -32,7 +32,7 @@ public class AccommodationService implements IAccommodationService {
     @Autowired
     IAccommodationRepository repository;
 
-    @Value("${image.upload.path}")
+    @Value("${accommodation-pictures-path}")
     String uploadPath;
 
 
@@ -87,13 +87,11 @@ public class AccommodationService implements IAccommodationService {
             throw ex;
         }
 
-
         for(Image image : images)
             image.setAccommodation(newAccommodation);
         newAccommodation.setImages(images);
         repository.save(newAccommodation);
         repository.flush();
-
 
     }
 
@@ -185,7 +183,7 @@ public class AccommodationService implements IAccommodationService {
     @Override
     public Boolean approveAccommodation(Long id)
     {
-
+        repository.changeStatus(id, Status.APPROVED);
         return false;
     }
 
@@ -196,10 +194,13 @@ public class AccommodationService implements IAccommodationService {
 
     @Override
     public AccommodationWithImagesDTO getAccommodationDetails(Long id) {
-        Optional<Accommodation> accommodation = repository.findById(id);
+        Optional<Accommodation> accommodation = repository.findByIdWithImages(id);
         AccommodationWithImagesDTO result = new AccommodationWithImagesDTO();
         AccommodationDTO accommodationDTO = new AccommodationDTO(accommodation.get());
+        Set<Image> images = accommodation.get().getImages();
+        Set<Image> imagesFromFileSytem = getImagesFromFilesystem(images);
         result.setAccommodationDTO(accommodationDTO);
+        result.setImages(imagesFromFileSytem);
         return result;
     }
 
@@ -270,8 +271,8 @@ public class AccommodationService implements IAccommodationService {
         Path path = Paths.get(image.getImagePath());
         try {
             byte[] imageData = Files.readAllBytes(path);
-            Image retVal = new Image(image.getImagePath(), image.getName(), image.getType(), image.getPicByte());
-            retVal.setPicByte(imageData);
+            Image retVal = new Image(image.getImagePath(), image.getName(), image.getType(), image.getImageBytes());
+            retVal.setImageBytes(imageData);
             return retVal;
         } catch (IOException e) {
             System.err.println("Unable to get image data "

@@ -71,6 +71,7 @@ public class Accommodation implements Serializable {
         this.accommodationType = a.getAccommodationType();
         this.prices = a.getPrices();
         this.amenities = a.getAmenities();
+        this.isPriceSetPerGuest = a.isPriceSetPerGuest();
     }
 
     public Accommodation(String name, String description, String location, int minGuests, int maxGuests, String accommodationType, List<Double> prices, Host host, Set<String> photos, Set<AccommodationAmenity> amenities) {

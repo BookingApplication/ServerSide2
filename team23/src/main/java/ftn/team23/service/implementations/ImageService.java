@@ -15,7 +15,7 @@ import java.util.Set;
 @Service
 public class ImageService {
 
-    @Value("${image.upload.path}")
+    @Value("${accommodation-pictures-path}")
     private String uploadPath;
 
     public Set<Image> extractAndSaveImages(MultipartFile[] multipartFiles) throws IOException {

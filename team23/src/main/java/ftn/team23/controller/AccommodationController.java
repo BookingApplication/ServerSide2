@@ -23,7 +23,7 @@ public class AccommodationController {
     @PreAuthorize("hasRole('HOST')")
     @PostMapping(value = "/create", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
     public void CreateAccommodation(@RequestPart("accommodation") AccommodationDTO accommodationDTO,
-                             @RequestPart("imageFile") MultipartFile[] multipartFiles){
+                                    @RequestPart("imageFile") MultipartFile[] multipartFiles){
 
         service.createAccommodation(accommodationDTO, multipartFiles);
     }
@@ -37,7 +37,7 @@ public class AccommodationController {
 
 
     @PreAuthorize("hasAnyRole('HOST','GUEST','ADMIN')")
-    @GetMapping(value="/getDetails/{id}", produces= {MediaType.MULTIPART_FORM_DATA_VALUE, MediaType.APPLICATION_JSON_VALUE})
+    @GetMapping(value="/getDetails/{id}")
     public AccommodationWithImagesDTO GetAccommodationDetails(@PathVariable Long id){
         AccommodationWithImagesDTO result = service.getAccommodationDetails(id);
         return result;

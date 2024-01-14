@@ -23,4 +23,9 @@ public interface IGuestRepository extends JpaRepository<Guest, Long>{
    @Modifying
    @Query("UPDATE Guest g SET g.activated = :activated WHERE g.codeActivation = :codeActivation")
    void updateActivationStatusByCodeActivation(String codeActivation, Boolean activated);
+
+   @Transactional
+   @Modifying
+   @Query("update Guest g SET g.profilePicture = ?2 where g.id = ?1")
+   void updateProfilePicture(Long id, String fileName);
 }

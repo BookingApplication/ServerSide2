@@ -1,5 +1,6 @@
 package ftn.team23.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -20,9 +21,10 @@ public class Image {
     private String name;
     private String type;
     @Transient
-    private byte[] picByte;
+    private byte[] imageBytes;
 
-    @ManyToOne//(cascade = CascadeType.ALL)
+    @JsonBackReference
+    @ManyToOne(fetch = FetchType.LAZY)//(cascade = CascadeType.ALL)
     @JoinColumn(name = "accommodation_id")
     private Accommodation accommodation;
 
@@ -35,7 +37,7 @@ public class Image {
         this.imagePath = imagePath;
         this.name = name;
         this.type = type;
-        this.picByte = bytes;
+        this.imageBytes = bytes;
     }
     /*
      * Hibernate zahteva da entitet mora biti jednak samom sebi kroz sva

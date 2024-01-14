@@ -1,5 +1,6 @@
 package ftn.team23.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import ftn.team23.entities.Accommodation;
 import ftn.team23.entities.Interval;
 import ftn.team23.enums.AccommodationAmenity;
@@ -19,6 +20,7 @@ public class AccommodationDTO {
 //    private Set<Image> images;
     private Set<Interval> intervals;
     private List<Double> prices;
+    @JsonProperty("isPriceSetPerGuest")
     private boolean isPriceSetPerGuest;
 
     public AccommodationDTO(){

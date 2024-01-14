@@ -9,10 +9,13 @@ import ftn.team23.service.interfaces.ISendGridService;
 import ftn.team23.service.interfaces.IUserService;
 import ftn.team23.service.interfaces.RoleService;
 //import jakarta.mail.internet.MimeMessage;
+import ftn.team23.util.ImageUploadUtil;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
 import org.modelmapper.internal.bytebuddy.utility.RandomString;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
 import org.springframework.http.HttpStatus;
 //import org.springframework.mail.javamail.JavaMailSender;
 //import org.springframework.mail.javamail.MimeMessageHelper;
@@ -25,15 +28,24 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
 //import jakarta.mail.MessagingException;
 //import java.io.UnsupportedEncodingException;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.sql.Timestamp;
 import java.util.*;
 
 @Service
 public class UserService implements IUserService {
+
+    @Value("${profile-picture-path}")
+    String imagesDirPath;
 
     @Autowired
     IGuestRepository guestRepository;
@@ -500,4 +512,53 @@ public class UserService implements IUserService {
         return null;
     }
 
+    @Override
+    @Transactional
+    public void uploadProfileImage(Long userId, MultipartFile image) throws IOException {
+
+        String fileName = StringUtils.cleanPath(image.getOriginalFilename());
+        String uploadDir = StringUtils.cleanPath(imagesDirPath + userId);
+        System.out.println(uploadDir);
+        ImageUploadUtil.saveImage(uploadDir, fileName, image);
+
+
+        Optional<Guest> guest = guestRepository.findById(userId);
+        if(guest.isPresent()) {
+            guestRepository.updateProfilePicture(userId, fileName);
+            return;
+        }
+        Optional<Host> host = hostRepository.findById(userId);
+        if(host.isPresent()) {
+            hostRepository.updateProfilePicture(userId, fileName);
+            return;
+        }
+        Optional<Administrator> admin = adminRepository.findById(userId);
+        if(admin.isPresent())
+            adminRepository.updateProfilePicture(userId, fileName);
+
+    }
+
+    @Override
+    public byte[] getProfileImage(Long userId) throws IOException {
+
+        String basePath = imagesDirPath + userId;
+        String imagePath="";
+
+        Optional<Guest> guest = guestRepository.findById(userId);
+        if(guest.isPresent())
+            imagePath = StringUtils.cleanPath(basePath + "/" + guest.get().getProfilePicture());
+
+        Optional<Host> host = hostRepository.findById(userId);
+        if(host.isPresent())
+            imagePath = StringUtils.cleanPath(basePath + "/" + host.get().getProfilePicture());
+
+
+        Optional<Administrator> admin = adminRepository.findById(userId);
+        if(admin.isPresent())
+            imagePath = StringUtils.cleanPath(basePath + "/" + admin.get().getProfilePicture());
+
+        File file = new File(imagePath);
+
+        return Files.readAllBytes(file.toPath());
+    }
 }

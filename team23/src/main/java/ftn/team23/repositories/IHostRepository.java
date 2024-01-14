@@ -23,4 +23,9 @@ public interface IHostRepository extends JpaRepository<Host, Long>{
     @Modifying
     @Query("UPDATE Host h SET h.activated = :activated WHERE h.codeActivation = :codeActivation")
     void updateActivationStatusByCodeActivation(String codeActivation, Boolean activated);
+
+    @Transactional
+    @Modifying
+    @Query("update Host h SET h.profilePicture = ?2 where h.id = ?1")
+    void updateProfilePicture(Long id, String fileName);
 }

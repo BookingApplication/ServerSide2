@@ -1,18 +1,17 @@
 package ftn.team23.controller;
 
 import ftn.team23.dto.UserRequest;
-import ftn.team23.entities.Guest;
-import ftn.team23.entities.Host;
-import ftn.team23.entities.User;
 import ftn.team23.service.interfaces.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 
 @RestController
 @RequestMapping(value = "/account", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -44,5 +43,23 @@ public class AccountController {
             return new ResponseEntity<>(result, HttpStatus.OK);
         }
     }
+
+    @PostMapping("/{userId}/profile-picture")
+    public ResponseEntity<String> uploadProfilePicture(
+            @PathVariable Long userId,
+            @RequestParam("image") MultipartFile imageFile) throws IOException {
+
+        service.uploadProfileImage(userId, imageFile);
+
+        return new ResponseEntity<>("Profile picture uploaded successfully", HttpStatus.OK);
+
+    }
+
+    @GetMapping(value= "/{userId}/profile-picture", produces = MediaType.IMAGE_JPEG_VALUE)
+    public ResponseEntity<byte[]>  getImageWithMediaType(@PathVariable Long userId) throws IOException {
+
+        return new ResponseEntity<>(service.getProfileImage(userId), HttpStatus.OK);
+    }
+
 
 }

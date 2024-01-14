@@ -23,4 +23,9 @@ public interface IAdminRepository extends JpaRepository<Administrator, Long> {
     @Modifying
     @Query("UPDATE Administrator a SET a.activated = :activated WHERE a.codeActivation = :codeActivation")
     void updateActivationStatusByCodeActivation(String codeActivation, Boolean activated);
+
+    @Transactional
+    @Modifying
+    @Query("update Administrator a SET a.profilePicture = ?2 where a.id = ?1")
+    void updateProfilePicture(Long id, String fileName);
 }
