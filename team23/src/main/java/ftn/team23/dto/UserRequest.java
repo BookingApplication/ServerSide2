@@ -1,74 +1,92 @@
 package ftn.team23.dto;
 
-// DTO koji preuzima podatke iz HTML forme za registraciju
+import ftn.team23.entities.User;
+
 public class UserRequest {
+    private Long id;
+    private String email;
+    private String password;
+    private String name;
+    private String surname;
+    private String livingAddress;
+    private String telephoneNumber;
+    private Boolean registerAsGuest;
 
-	private Long id;
+    public UserRequest(){}
 
-	private String email;
+    public UserRequest(User u) {this(u.getId(), u.getEmail(), u.getPassword(), u.getName(), u.getSurname(), u.getLivingAddress(), u.getTelephoneNumber());}
 
-	private String password;
+    public UserRequest(Long id, String email, String password, String name, String surname, String livingAddress, String telephoneNumber) {
+        this.id = id;
+        this.email = email;
+        this.password = password;
+        this.name = name;
+        this.surname = surname;
+        this.livingAddress = livingAddress;
+        this.telephoneNumber = telephoneNumber;
+    }
 
-	private String name;
+    public Long getId() {
+        return id;
+    }
 
-	private String surname;
+    public void setId(Long id) {
+        this.id = id;
+    }
+    public String getEmail() {
+        return email;
+    }
 
-	private String livingAddress;
-	private String telephoneNumber;
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-	public Long getId() {
-		return id;
-	}
+    public String getPassword() {
+        return password;
+    }
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
-	public String getEmail() {
-		return email;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public String getPassword() {
-		return password;
-	}
+    public String getSurname() {
+        return surname;
+    }
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public String getLivingAddress() {
+        return livingAddress;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public void setLivingAddress(String livingAddress) {
+        this.livingAddress = livingAddress;
+    }
 
-	public String getSurname() {
-		return surname;
-	}
+    public String getTelephoneNumber() {
+        return telephoneNumber;
+    }
 
-	public void setSurname(String surname) {
-		this.surname = surname;
-	}
+    public void setTelephoneNumber(String telephoneNumber) {
+        this.telephoneNumber = telephoneNumber;
+    }
 
-	public String getLivingAddress() {
-		return livingAddress;
-	}
+    public Boolean getRegisterAsGuest() {
+        return registerAsGuest;
+    }
 
-	public void setLivingAddress(String livingAddress) {
-		this.livingAddress = livingAddress;
-	}
+    public void setRegisterAsGuest(Boolean registerAsGuest) {
+        this.registerAsGuest = registerAsGuest;
+    }
 
-	public String getTelephoneNumber() {
-		return telephoneNumber;
-	}
-
-	public void setTelephoneNumber(String telephoneNumber) {
-		this.telephoneNumber = telephoneNumber;
-	}
-}
+  }

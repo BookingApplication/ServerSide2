@@ -10,13 +10,4 @@ public class UnauthenticatedUser extends User {
         super(email,password, name, surname, livingAddress, telephoneNumber);
     }
 
-    @Override
-    public String getUsername() {
-        return null;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return false;
-    }
 }

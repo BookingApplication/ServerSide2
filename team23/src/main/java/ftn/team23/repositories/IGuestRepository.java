@@ -2,47 +2,30 @@ package ftn.team23.repositories;
 
 import ftn.team23.entities.Guest;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
 
-//public interface IGuestRepository extends IUserRepository<Guest> {
 public interface IGuestRepository extends JpaRepository<Guest, Long>{
-
-   Guest save(Guest guest);
 
    @Override
    void deleteById(Long aLong);
 
-
-//   Guest findGuestByEmail(String email);
-
    Optional<Guest> findByEmail(String email);
+   Optional<Guest> findByEmailAndPassword(String email, String password);
+   Optional<Guest> findByUsername(String username);
+   Optional<Guest> findByCodeActivation(String codeActivation);
 
-   //
-//   Optional<List<Guest>> findByEmailContaining(String email); //proseldi "@" znak
+   @Transactional
+   @Modifying
+   @Query("UPDATE Guest g SET g.activated = :activated WHERE g.codeActivation = :codeActivation")
+   void updateActivationStatusByCodeActivation(String codeActivation, Boolean activated);
 
-   Guest findGuestByEmailAndPassword(String email, String password);
-
-
-// getall
-//   @Override
-//   List<Guest> findAll(Sort sort);
-//
-//   @Override
-//   <S extends Guest> List<S> findAll(Example<S> example, Sort sort);
-//---------------------------------------------
-
-
-   //   @Override
-//   void deleteById(Long aLong);
-//
-//   @Override
-//   Guest findByEmail(String email);
-//
-//
-//   @Override
-//   Guest findByEmailAndPassword(String email, String password);
-
+   @Transactional
+   @Modifying
+   @Query("update Guest g SET g.profilePicture = ?2 where g.id = ?1")
+   void updateProfilePicture(Long id, String fileName);
 }
-

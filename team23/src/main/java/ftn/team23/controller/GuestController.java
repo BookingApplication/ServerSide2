@@ -1,53 +1,56 @@
 package ftn.team23.controller;
 
-import ftn.team23.dto.AccountDataDTO;
+import ftn.team23.dto.UserRequest;
 import ftn.team23.entities.Guest;
-import ftn.team23.service.implementations.GuestService;
+import ftn.team23.service.implementations.UserService;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
-import java.util.Collection;
-import java.util.List;
+import javax.mail.MessagingException;
+import java.io.UnsupportedEncodingException;
 
-@CrossOrigin(origins = "http://localhost:4200/")
+@CrossOrigin
 @RestController
-@RequestMapping(value = "/guest")
+@RequestMapping(value = "/guest", consumes = "application/json", produces = MediaType.APPLICATION_JSON_VALUE)
 public class GuestController {
 
     @Autowired
-    private GuestService guestService;
+    private UserService userService;
 
-    @GetMapping(path="/getAll")
-//    public ResponseEntity<Collection<AccountDataDTO>> getAllGuests()
-//    {
-//        Collection<AccountDataDTO> guests = guestService.findAllGuests();
-//    }
-    public void getAllGuests()
-    {
-       guestService.findAllGuests();
+    @GetMapping(path = "/getAll")
+    public void getAllGuests() {
+        userService.findAllGuests();
     }
 
-    //@PostMapping(path = "/register", consumes = "application/json")
     @PostMapping(path = "/register")
-    public ResponseEntity<AccountDataDTO> register(@RequestBody AccountDataDTO guestData) {
-        AccountDataDTO result = guestService.register(guestData);
-        if(result == null)
-        {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
-        else
-            return new ResponseEntity<>(result, HttpStatus.OK);
+    public ResponseEntity<UserRequest> signup(@RequestBody UserRequest userRequest) {
+        if (userService.IsEmailUniqueAcrossAllTables(userRequest.getEmail())) {
+            UserRequest result = userService.signupAsGuest(userRequest);
+            return new ResponseEntity<>(result, HttpStatus.CREATED);
+        } else
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User with that email already exists.");
     }
 
-    //for later use, replace email with jwt logic
-    @DeleteMapping("/delete/{email}")
-    public ResponseEntity<Void> deleteAccount(@PathVariable String email) {
-        System.out.println("email received: " + email);
-        guestService.deleteGuestByEmail(email);
-        return new ResponseEntity<>(HttpStatus.OK);
+    @GetMapping(path = "/verify")
+    public void verifyEmail(@Param("code") String code) {
+        userService.verifyGuest(code);
     }
 
-
+    //todo: add reservations, delete guest if there are no active reservations
+    //      delete host if there are no active reservations for any of the accommodations he owns,
+    //      this removes all the accommodations of that owner
+    @PreAuthorize("hasRole('GUEST')")
+    @DeleteMapping("/delete")
+    public ResponseEntity<Boolean> deleteAccount() {
+        boolean success = userService.deleteGuest();
+        return new ResponseEntity<>(success, HttpStatus.OK);
+    }
 }

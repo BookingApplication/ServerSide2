@@ -1,9 +1,15 @@
 package ftn.team23.entities;
 
 import jakarta.persistence.Entity;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 
 @Entity
-//public class Guest extends User implements Serializable {
+//@SQLDelete(sql
+//        = "UPDATE guest "
+//        + "SET deleted = true "
+//        + "WHERE id = ?")
+//@Where(clause = "deleted = false")
 public class Guest extends User{
     public Guest() {
     }
@@ -12,14 +18,4 @@ public class Guest extends User{
         super(email,password, name, surname, livingAddress, telephoneNumber);
     }
 
-
-    @Override
-    public String getUsername() {
-        return null;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return false;
-    }
 }

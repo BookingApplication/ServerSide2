@@ -1,62 +1,80 @@
 package ftn.team23.entities;
 
+import ftn.team23.dto.AccommodationDTO;
 import ftn.team23.enums.AccommodationAmenity;
 import ftn.team23.enums.Status;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
+@SQLDelete(sql
+        = "UPDATE accommodation "
+        + "SET deleted = true "
+        + "WHERE id = ?")
+@Where(clause = "deleted=false")
 public class Accommodation implements Serializable {
-    private static final int DAYS_IN_A_YEAR = 365;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    //atribut potreban za logicko brisanje (soft delete)
-    //i koji se koristi u @Where klauzuli koju Hibernate dodaje pri svakom upitu koji treba da vrati sve neobrisane torke
-    @Column(name = "deleted")
-    private boolean deleted;
-
     private String name;
+    @Column(length = 2000)
     private String description;
     private String location;
     private int minGuests;
     private int maxGuests;
     private String accommodationType;   //Studio, apartment, ...
-    private Status status;
+    private Status status;  //waiting_confirmation, approved, denied
+    private boolean isPriceSetPerGuest;
+    @Column(name = "deleted")
+    private boolean deleted;
 
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     @Enumerated(EnumType.STRING)
-    private Set<AccommodationAmenity> amenities;
+    private Set<AccommodationAmenity> amenities = new HashSet<AccommodationAmenity>();
 
-    @ElementCollection
-    private List<Double> prices; //prices per day
+    @ElementCollection(fetch = FetchType.EAGER)
+    private List<Double> prices = new ArrayList<Double>();
 
-    @ElementCollection
-    @CollectionTable(name = "interval_and_price", joinColumns = @JoinColumn(name = "accommodation_id"))
-    private Set<IntervalAndPrice> intervalsAndPrices;
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "available_intervals", joinColumns = @JoinColumn(name = "accommodation_id"))
+    private Set<Interval> availableIntervals = new HashSet<Interval>();
 
-
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "accommodation_id")
+    private Set<Image> images = new HashSet<Image>();
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Host host;
 
-    @ElementCollection
-    @CollectionTable(name = "accommodation_photos", joinColumns = @JoinColumn(name = "accommodation_id"))
-    @Column(name = "photo_url")
-    private Set<String> photos;
-
-
-    public Accommodation() {
-        this.prices = new ArrayList<>(DAYS_IN_A_YEAR);
+    public Accommodation(AccommodationDTO a)
+    {
+        this.name = a.getName();
+        this.description = a.getDescription();
+        this.location = a.getLocation();
+        this.minGuests = a.getMinNbOfGuests();
+        this.maxGuests = a.getMaxNbOfGuests();
+        this.accommodationType = a.getAccommodationType();
+        this.prices = a.getPrices();
+        this.amenities = a.getAmenities();
+        this.isPriceSetPerGuest = a.isPriceSetPerGuest();
     }
 
-    public Accommodation(Long id, String name, String description, String location, int minGuests, int maxGuests, String accommodationType, List<Double> prices, Host host, Set<String> photos, Set<AccommodationAmenity> amenities) {
-        this.id = id;
+    public Accommodation(String name, String description, String location, int minGuests, int maxGuests, String accommodationType, List<Double> prices, Host host, Set<String> photos, Set<AccommodationAmenity> amenities) {
         this.name = name;
         this.description = description;
         this.location = location;
@@ -65,97 +83,24 @@ public class Accommodation implements Serializable {
         this.accommodationType = accommodationType;
         this.prices = prices;
         this.host = host;
-        this.photos = photos;
         this.amenities = amenities;
     }
 
-    public Long getId() {
-        return id;
+    public void addImage(Image image){
+        images.add(image);
+        image.setAccommodation(this);
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public String getLocation() {
-        return location;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
-    }
-
-    public Set<String> getPhotos() {
-        return photos;
-    }
-
-    public void setPhotos(Set<String> photos) {
-        this.photos = photos;
-    }
-
-    public int getMinGuests() {
-        return minGuests;
-    }
-
-    public void setMinGuests(int minGuests) {
-        this.minGuests = minGuests;
-    }
-
-    public int getMaxGuests() {
-        return maxGuests;
-    }
-
-    public void setMaxGuests(int maxGuests) {
-        this.maxGuests = maxGuests;
-    }
-
-    public String getAccommodationType() {
-        return accommodationType;
-    }
-
-    public void setAccommodationType(String accommodationType) {
-        this.accommodationType = accommodationType;
-    }
-
-    public Host getHost() {
-        return host;
-    }
-
-    public void setHost(Host host) {
-        this.host = host;
-    }
-
-    public Set<AccommodationAmenity> getAmenities() {
-        return amenities;
-    }
-
-    public void setAmenities(Set<AccommodationAmenity> amenities) {
-        this.amenities = amenities;
-    }
-
-    public List<Double> getPrices() {
-        return prices;
-    }
-
-    public void setPrices(List<Double> prices) {
-        this.prices = prices;
+    public void removeImage(Image image){
+        images.remove(image);
+        image.setAccommodation(null);
     }
 
 
+    @Override
+    public String toString(){
+        return "Accommodation{" +
+                "id=" + this.id +
+                ", name='" + this.name + "}";
+    }
 }
