@@ -5,8 +5,10 @@ import ftn.team23.dto.AccommodationWithImagesDTO;
 import ftn.team23.entities.Accommodation;
 import ftn.team23.entities.Host;
 import ftn.team23.entities.Image;
+import ftn.team23.entities.Reservation;
 import ftn.team23.enums.Status;
 import ftn.team23.repositories.IAccommodationRepository;
+import ftn.team23.repositories.IReservationRepository;
 import ftn.team23.service.interfaces.IAccommodationService;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
@@ -31,6 +33,8 @@ public class AccommodationService implements IAccommodationService {
 
     @Autowired
     IAccommodationRepository repository;
+    @Autowired
+    IReservationRepository reservationRepository;
 
     @Value("${accommodation-pictures-path}")
     String uploadPath;
@@ -53,6 +57,7 @@ public class AccommodationService implements IAccommodationService {
         Accommodation newAccommodation = new Accommodation(accommodationDetails);
         newAccommodation.setHost(host);
         newAccommodation.setStatus(Status.WAITING_CONFIRMATION);
+        newAccommodation.setReservationManual(true);
 
         Set<Image> images = new HashSet<>();
         try {
@@ -104,6 +109,8 @@ public class AccommodationService implements IAccommodationService {
         if(found.isEmpty())
             return;
 
+
+
         Accommodation updatedAccommodation = found.get();
         //ostavi id, host
         updatedAccommodation.setName(updatedAccommodationDetails.getName());
@@ -117,6 +124,12 @@ public class AccommodationService implements IAccommodationService {
         updatedAccommodation.setPrices(updatedAccommodationDetails.getPrices());
         updatedAccommodation.setPriceSetPerGuest(updatedAccommodationDetails.isPriceSetPerGuest());
         updatedAccommodation.setStatus(Status.WAITING_CONFIRMATION);
+        updatedAccommodation.setReservationManual(updatedAccommodationDetails.isReservationManual());
+
+        List<Reservation> reservations = reservationRepository.findAllByAccommodationId(updatedAccommodation.getId());
+
+
+
 
         try{
             Set<Image> newImages = extractAndSaveImages(multipartFiles);
@@ -183,13 +196,28 @@ public class AccommodationService implements IAccommodationService {
     @Override
     public Boolean approveAccommodation(Long id)
     {
-        repository.changeStatus(id, Status.APPROVED);
+        //todo what must be checked before approval?
+
+        Optional<Accommodation> found = repository.findById(id);
+        if(found.isEmpty())
+            return false;
+        if(found.get().getStatus() == Status.WAITING_CONFIRMATION || found.get().getStatus() == Status.UPDATED) {
+            repository.changeStatus(id, Status.APPROVED);
+            return true;
+        }
         return false;
     }
 
     @Override
     public Boolean denyAccommodation(Long id) {
-        return null;
+        Optional<Accommodation> found = repository.findById(id);
+        if(found.isEmpty())
+            return false;
+        if(found.get().getStatus() == Status.WAITING_CONFIRMATION || found.get().getStatus() == Status.UPDATED) {
+            repository.changeStatus(id, Status.DENIED);
+            return true;
+        }
+        return false;
     }
 
     @Override
@@ -199,7 +227,7 @@ public class AccommodationService implements IAccommodationService {
         AccommodationDTO accommodationDTO = new AccommodationDTO(accommodation.get());
         Set<Image> images = accommodation.get().getImages();
         Set<Image> imagesFromFileSytem = getImagesFromFilesystem(images);
-        result.setAccommodationDTO(accommodationDTO);
+        result.setAccommodation(accommodationDTO);
         result.setImages(imagesFromFileSytem);
         return result;
     }
@@ -211,9 +239,19 @@ public class AccommodationService implements IAccommodationService {
 
     @Override
     public Set<AccommodationWithImagesDTO> getAccommodationsWaitingOnApproval() {
-        repository.findAccommodationByStatus(Status.WAITING_CONFIRMATION);
+        List<Accommodation> accommodations = repository.findAccommodationByStatusWithImages(Status.WAITING_CONFIRMATION);
+        Set<AccommodationWithImagesDTO> result = new HashSet<>();
+        for(Accommodation a : accommodations)
+        {
+            AccommodationDTO accommodationDTO = new AccommodationDTO(a);
+            Set<Image> images = getImagesFromFilesystem(a.getImages());
+            AccommodationWithImagesDTO accommodationWithImagesDTO = new AccommodationWithImagesDTO();
+            accommodationWithImagesDTO.setAccommodation(accommodationDTO);
+            accommodationWithImagesDTO.setImages(images);
+            result.add(accommodationWithImagesDTO);
+        }
 
-        return null;
+        return result;
     }
 
 

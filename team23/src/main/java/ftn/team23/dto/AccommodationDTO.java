@@ -2,6 +2,7 @@ package ftn.team23.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import ftn.team23.entities.Accommodation;
+import ftn.team23.entities.Image;
 import ftn.team23.entities.Interval;
 import ftn.team23.enums.AccommodationAmenity;
 
@@ -17,11 +18,14 @@ public class AccommodationDTO {
     private Integer maxNbOfGuests;
     private String accommodationType;
     private Set<AccommodationAmenity> amenities;
-//    private Set<Image> images;
     private Set<Interval> intervals;
     private List<Double> prices;
     @JsonProperty("isPriceSetPerGuest")
     private boolean isPriceSetPerGuest;
+    @JsonProperty("isReservationManual")
+    private boolean isReservationManual;
+
+
 
     public AccommodationDTO(){
 
@@ -135,5 +139,13 @@ public class AccommodationDTO {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public boolean isReservationManual() {
+        return isReservationManual;
+    }
+
+    public void setReservationManual(boolean reservationMannual) {
+        isReservationManual = reservationMannual;
     }
 }

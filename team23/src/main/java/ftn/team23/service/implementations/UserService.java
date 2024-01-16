@@ -2,9 +2,8 @@ package ftn.team23.service.implementations;
 
 import ftn.team23.dto.UserRequest;
 import ftn.team23.entities.*;
-import ftn.team23.repositories.IAdminRepository;
-import ftn.team23.repositories.IGuestRepository;
-import ftn.team23.repositories.IHostRepository;
+import ftn.team23.enums.Status;
+import ftn.team23.repositories.*;
 import ftn.team23.service.interfaces.ISendGridService;
 import ftn.team23.service.interfaces.IUserService;
 import ftn.team23.service.interfaces.RoleService;
@@ -27,6 +26,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
@@ -60,6 +60,10 @@ public class UserService implements IUserService {
     PasswordEncoder passwordEncoder;
     @Autowired
     RoleService roleService;
+
+    @Autowired
+    IReservationRepository reservationRepository;
+
 
     public boolean IsEmailUniqueAcrossAllTables(String email) {
         Optional<Guest> guest = guestRepository.findByEmail(email);
@@ -227,27 +231,25 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public boolean deleteGuest() {
-        Guest g = (Guest)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        try {
-            SecurityContextHolder.clearContext();
-            //todo: check if there are no active reservations in guest, soft delete
-            guestRepository.deleteById(g.getId());
-            guestRepository.flush();
-            return true;
-        }
-        catch (RuntimeException ex)
-        {
-            return false;
-        }
-    }
+    public String deleteGuest(Long id) {
+        Optional<Guest> guest = guestRepository.getGuestWithReservation(id);
+        if(guest.isEmpty())
+            return "Guest does not exist.";
 
-    @Override
-    public void deleteGuestByEmail(String email) {
-        Optional<Guest> g = guestRepository.findByEmail(email);
-        if (g.isPresent()) {
-            guestRepository.deleteById(g.get().getId());
+        boolean canDelete = true;
+        for(Reservation r : guest.get().getReservations()){
+            if(r.getStatus() == Status.APPROVED){
+                canDelete = false;
+            }
         }
+
+        if(canDelete)
+        {
+            guestRepository.deleteById(id);
+            return "Guest deleted.";
+        }
+
+        return "Unable to delete guest. There are still active reservations.";
     }
 
     @Override
@@ -370,9 +372,23 @@ public class UserService implements IUserService {
         }
     }
 
+
     @Override
-    public boolean deleteHost() {
-        return false;
+    public String deleteHost(Long id) {
+        Optional<Host> host = hostRepository.getHostWithAccommodations(id);
+        List<Reservation> reservations = reservationRepository.findByStatus(Status.APPROVED);
+
+        if(host.isEmpty())
+            return "Host does not exist.";
+
+        for(Accommodation a : host.get().getAccommodations()) {
+            for (Reservation r : reservations) {
+                if(r.getId().equals(a.getId()))
+                    return "Unable to delete account. There are still active reservations.";
+            }
+        }
+        hostRepository.deleteById(id);
+        return "Host deleted.";
     }
 
     public List<UserRequest> findAllHosts() {
@@ -386,15 +402,6 @@ public class UserService implements IUserService {
             allAccounts.add(accountData);
         }
         return allAccounts;
-    }
-
-
-    @Override
-    public void deleteHostByEmail(String email) {
-        Optional<Host> h = hostRepository.findByEmail(email);
-        if (h.isPresent()) {
-            hostRepository.deleteById(h.get().getId());
-        }
     }
 
     @Override
@@ -484,14 +491,6 @@ public class UserService implements IUserService {
             allAccounts.add(accountData);
         }
         return allAccounts;
-    }
-
-    @Override
-    public void deleteAdminByEmail(String email) {
-        Optional<Administrator> a = adminRepository.findByEmail(email);
-        if (a.isPresent()) {
-            adminRepository.deleteById(a.get().getId());
-        }
     }
 
     @Override

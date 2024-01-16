@@ -44,13 +44,14 @@ public class GuestController {
         userService.verifyGuest(code);
     }
 
-    //todo: add reservations, delete guest if there are no active reservations
-    //      delete host if there are no active reservations for any of the accommodations he owns,
-    //      this removes all the accommodations of that owner
     @PreAuthorize("hasRole('GUEST')")
-    @DeleteMapping("/delete")
-    public ResponseEntity<Boolean> deleteAccount() {
-        boolean success = userService.deleteGuest();
-        return new ResponseEntity<>(success, HttpStatus.OK);
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<String> deleteAccount(@PathVariable Long id) {
+        String result = userService.deleteGuest(id);
+        if(result.equals("Guest does not exist."))
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        else if(result.equals("Unable to delete guest. There are still active reservations."))
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(result, HttpStatus.OK);
     }
 }

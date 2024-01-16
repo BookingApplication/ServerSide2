@@ -3,7 +3,10 @@ package ftn.team23.entities;
 import ftn.team23.dto.AccommodationDTO;
 import ftn.team23.enums.AccommodationAmenity;
 import ftn.team23.enums.Status;
+import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Null;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,11 +23,6 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@SQLDelete(sql
-        = "UPDATE accommodation "
-        + "SET deleted = true "
-        + "WHERE id = ?")
-@Where(clause = "deleted=false")
 public class Accommodation implements Serializable {
 
     @Id
@@ -40,8 +38,8 @@ public class Accommodation implements Serializable {
     private String accommodationType;   //Studio, apartment, ...
     private Status status;  //waiting_confirmation, approved, denied
     private boolean isPriceSetPerGuest;
-    @Column(name = "deleted")
-    private boolean deleted;
+    private boolean isReservationManual;
+    private Integer reservationDeadline;   //reservation can be cancelled, this many days before it's start date.
 
     @ElementCollection(fetch = FetchType.EAGER)
     @Enumerated(EnumType.STRING)
@@ -59,6 +57,7 @@ public class Accommodation implements Serializable {
     private Set<Image> images = new HashSet<Image>();
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="host_id")
     private Host host;
 
     public Accommodation(AccommodationDTO a)

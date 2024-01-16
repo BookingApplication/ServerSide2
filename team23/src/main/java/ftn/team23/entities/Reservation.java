@@ -1,10 +1,8 @@
 package ftn.team23.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import ftn.team23.enums.Status;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -23,4 +21,7 @@ public class Reservation {
     private Status status;
     @Column(name = "deleted")
     private boolean deleted;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "guest_id")
+    private Guest guest;
 }
