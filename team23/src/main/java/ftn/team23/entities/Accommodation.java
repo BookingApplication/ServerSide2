@@ -5,13 +5,14 @@ import ftn.team23.enums.AccommodationAmenity;
 import ftn.team23.enums.Status;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Null;
+import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.Value;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
+import org.hibernate.validator.constraints.Length;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -29,16 +30,26 @@ public class Accommodation implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Length(min = 1, max=40, message = "{accommodation.name.length}")
     private String name;
     @Column(length = 2000)
+    @Length(min = 1, max=2000, message = "{accommodation.description.length}")
     private String description;
+    @Length(min = 1, max=100, message = "{accommodation.location.length}")
     private String location;
+    @PositiveOrZero(message = "{accommodation.minGuests.positiveOrZero}")
     private int minGuests;
+    @Positive(message = "{accommodation.maxGuests.positive}")
     private int maxGuests;
+    @Length(min=1, message = "{accommodation.accommodationType.Empty}")
     private String accommodationType;   //Studio, apartment, ...
+    @NotNull(message = "{accommodation.status.notNull}")
     private Status status;  //waiting_confirmation, approved, denied
+    @NotNull(message = "{accommodation.isPriceSetPerGuest.notNull}")
     private boolean isPriceSetPerGuest;
+    @NotNull(message = "{accommodation.isReservationManual.notNull}")
     private boolean isReservationManual;
+    @PositiveOrZero(message = "{accommodation.reservationDeadline.PositiveOrZero}")
     private Integer reservationDeadline;   //reservation can be cancelled, this many days before it's start date.
 
     @ElementCollection(fetch = FetchType.EAGER)

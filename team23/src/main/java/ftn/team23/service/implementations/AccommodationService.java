@@ -64,7 +64,6 @@ public class AccommodationService implements IAccommodationService {
             images = extractAndSaveImages(multipartFiles);
             for(Image image : images) {
                 image.setAccommodation(newAccommodation);
-                image.setId((long) (Math.random()*1000000));
             }
             newAccommodation.setImages(images);
             repository.save(newAccommodation);

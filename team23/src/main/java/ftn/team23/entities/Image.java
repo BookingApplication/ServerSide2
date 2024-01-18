@@ -12,10 +12,13 @@ import java.util.Objects;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@TableGenerator(name="image_id_generator", table="primary_keys", pkColumnName="key_pk", pkColumnValue="image", valueColumnName="value_pk")
 public class Image {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = "image_id_generator")
     private Long id;
+
 
     private String imagePath;
     private String name;

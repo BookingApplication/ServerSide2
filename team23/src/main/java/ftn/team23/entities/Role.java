@@ -2,6 +2,8 @@ package ftn.team23.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import org.hibernate.validator.constraints.Length;
 import org.springframework.security.core.GrantedAuthority;
 
 
@@ -17,6 +19,7 @@ public class Role implements GrantedAuthority {
     Long id;
 
     @Column(name="name")
+    @NotNull(message = "{role.name.notNull}")
     String name;
 
     @JsonIgnore

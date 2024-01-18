@@ -2,15 +2,20 @@ package ftn.team23.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
+import org.hibernate.validator.constraints.Length;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.io.Serializable;
+import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.Collection;
 import java.util.List;
@@ -32,17 +37,29 @@ public class User implements Serializable, UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE, generator = "user_data_id_generator")
     private Long id;
+    @Email(message="{user.email.format}")
     private String email;
+    @Length(min=3, max=300,message = "{user.password.length}")
     private String password;
     private String username;
+    @Length(min=1, max=50,message = "{user.name.length}")
     private String name;
+    @Length(min=1, max=50,message = "{user.surname.length}")
     private String surname;
+    @Length(min=1, max=50,message = "{user.livingAddress.length}")
     private String livingAddress;
+    @Pattern(regexp = "^[0-9]*$", message = "{user.telephoneNumber.pattern}")
+    @Length(min=6, max=10,message = "{user.telephoneNumber.length}")
     private String telephoneNumber;
+    @NotNull(message = "{user.lastPasswordResetDate.notNull}")
     private Timestamp lastPasswordResetDate;
+    @NotNull(message = "{user.activated.notNull}")
     private boolean activated;      //atribut koji oznacava da li je nalog aktiviran
+    @Length(min=6, max=200,message = "{user.codeActivation.length}")
     private String codeActivation;  //kod koji je poslat u emailu za aktivaciju naloga
+    @NotNull(message = "{user.accountVerificationRequestDate.notNull}")
     private Timestamp accountVerificationRequestDate;   //datum slanja zahteva za aktivaciju naloga
+    @Length(min=1, max=50,message = "{user.profilePicture.length}")
     private String profilePicture;
 
     @ManyToMany(fetch = FetchType.EAGER)
@@ -50,10 +67,6 @@ public class User implements Serializable, UserDetails {
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
     private List<Role> roles;
-
-    @Column(name = "deleted")
-    private boolean deleted;
-
 
     public User(String email, String password, String name, String surname, String livingAddress, String telephoneNumber) {
         this.email = email;

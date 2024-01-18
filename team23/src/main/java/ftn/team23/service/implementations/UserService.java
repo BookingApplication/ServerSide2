@@ -165,7 +165,7 @@ public class UserService implements IUserService {
         if (found.isPresent()) {
             long currentTime = new Timestamp(System.currentTimeMillis()).getTime();
             long requestSentTime = found.get().getAccountVerificationRequestDate().getTime();
-            double hoursPassed = (double) (currentTime - requestSentTime) / 1000 * 60 * 60;
+            double hoursPassed = (double) (currentTime - requestSentTime) / (1000 * 60 * 60);
             if (found.get().getCodeActivation().equals(code) && hoursPassed <= 24) {
                 Boolean activated = true;
                 guestRepository.updateActivationStatusByCodeActivation(code, activated);
@@ -325,10 +325,14 @@ public class UserService implements IUserService {
 
         String encodedPassword = userRequest.getPassword().isEmpty() ? found.get().getPassword() : passwordEncoder.encode(userRequest.getPassword());
         Host hostToUpdate = new Host(userRequest.getEmail(), encodedPassword, userRequest.getName(), userRequest.getSurname(), userRequest.getLivingAddress(), userRequest.getTelephoneNumber());
+
         hostToUpdate.setRoles(found.get().getRoles());
         hostToUpdate.setId(found.get().getId());
         hostToUpdate.setLastPasswordResetDate(found.get().getLastPasswordResetDate());
         hostToUpdate.setActivated(found.get().isActivated());
+        hostToUpdate.setCodeActivation(found.get().getCodeActivation());
+        hostToUpdate.setAccountVerificationRequestDate(found.get().getAccountVerificationRequestDate());
+        hostToUpdate.setProfilePicture(found.get().getProfilePicture());
 
         if (!encodedPassword.equals(found.get().getPassword()))
             hostToUpdate.setLastPasswordResetDate(new Timestamp(System.currentTimeMillis()));
@@ -364,7 +368,7 @@ public class UserService implements IUserService {
         if (found.isPresent()) {
             long currentTime = new Timestamp(System.currentTimeMillis()).getTime();
             long requestSentTime = found.get().getAccountVerificationRequestDate().getTime();
-            double hoursPassed = (double) (currentTime - requestSentTime) / 1000 * 60 * 60;
+            double hoursPassed = (double) (currentTime - requestSentTime) / (1000 * 60 * 60);
             if (found.get().getCodeActivation().equals(code) && hoursPassed <= 24) {
                 Boolean activated = true;
                 hostRepository.updateActivationStatusByCodeActivation(code, activated);
