@@ -41,7 +41,6 @@ public class User implements Serializable, UserDetails {
     private String email;
     @Length(min=3, max=300,message = "{user.password.length}")
     private String password;
-    private String username;
     @Length(min=1, max=50,message = "{user.name.length}")
     private String name;
     @Length(min=1, max=50,message = "{user.surname.length}")

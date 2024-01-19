@@ -17,7 +17,6 @@ public interface IHostRepository extends JpaRepository<Host, Long>{
 
     Optional<Host> findByEmail(String email);
     Optional<Host> findByEmailAndPassword(String email, String password);
-    Optional<Host> findByUsername(String username);
     Optional<Host> findByCodeActivation(String codeActivation);
 
     @Transactional

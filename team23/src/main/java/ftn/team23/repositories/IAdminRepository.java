@@ -17,7 +17,6 @@ public interface IAdminRepository extends JpaRepository<Administrator, Long> {
 
     Optional<Administrator> findByEmail(String email);
     Optional<Administrator> findByEmailAndPassword(String email, String password);
-    Optional<Administrator> findByUsername(String username);
     Optional<Administrator> findByCodeActivation(String codeActivation);
 
     @Transactional

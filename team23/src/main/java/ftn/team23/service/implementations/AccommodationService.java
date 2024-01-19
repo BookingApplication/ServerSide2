@@ -12,6 +12,7 @@ import ftn.team23.repositories.IReservationRepository;
 import ftn.team23.service.interfaces.IAccommodationService;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
+import org.apache.logging.log4j.CloseableThreadContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -26,6 +27,7 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.sql.Timestamp;
 import java.util.*;
 
 @Service
@@ -58,6 +60,8 @@ public class AccommodationService implements IAccommodationService {
         newAccommodation.setHost(host);
         newAccommodation.setStatus(Status.WAITING_CONFIRMATION);
         newAccommodation.setReservationManual(true);
+        newAccommodation.setReservationDeadline(0);
+        newAccommodation.setAvailableIntervals(accommodationDetails.getIntervals());
 
         Set<Image> images = new HashSet<>();
         try {

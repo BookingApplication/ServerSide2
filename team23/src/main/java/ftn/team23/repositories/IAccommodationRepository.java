@@ -19,7 +19,7 @@ public interface IAccommodationRepository extends JpaRepository<Accommodation, L
     List<Accommodation> findByHost(long hostId);
 
 
-    @Query("select a from Accommodation a where a.status = ?1")
+    @Query("select a from Accommodation a join fetch a.images imgs where a.status = ?1")
     List<Accommodation> findAccommodationByStatus(Status status);
 
     @Query("select a from Accommodation a join fetch a.images imgs where a.status = ?1")

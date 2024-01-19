@@ -17,7 +17,6 @@ public interface IGuestRepository extends JpaRepository<Guest, Long>{
 
    Optional<Guest> findByEmail(String email);
    Optional<Guest> findByEmailAndPassword(String email, String password);
-   Optional<Guest> findByUsername(String username);
    Optional<Guest> findByCodeActivation(String codeActivation);
 
    @Transactional
