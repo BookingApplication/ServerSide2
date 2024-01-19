@@ -5,11 +5,6 @@ import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
 @Entity
-//@SQLDelete(sql
-//        = "UPDATE administrator "
-//        + "SET deleted = true "
-//        + "WHERE id = ?")
-//@Where(clause = "deleted = false")
 public class Administrator extends User{
     public Administrator() {
     }

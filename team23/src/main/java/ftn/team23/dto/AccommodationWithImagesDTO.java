@@ -5,24 +5,24 @@ import ftn.team23.entities.Image;
 import java.util.Set;
 
 public class AccommodationWithImagesDTO {
-    AccommodationDTO accommodationDTO;
+    AccommodationDTO accommodation;
     Set<Image> images;
 
     public AccommodationWithImagesDTO(){
 
     }
 
-    public AccommodationWithImagesDTO(AccommodationDTO accommodationDTO, Set<Image> images) {
-        this.accommodationDTO = accommodationDTO;
+    public AccommodationWithImagesDTO(AccommodationDTO accommodation, Set<Image> images) {
+        this.accommodation = accommodation;
         this.images = images;
     }
 
-    public AccommodationDTO getAccommodationDTO() {
-        return accommodationDTO;
+    public AccommodationDTO getAccommodation() {
+        return accommodation;
     }
 
-    public void setAccommodationDTO(AccommodationDTO accommodationDTO) {
-        this.accommodationDTO = accommodationDTO;
+    public void setAccommodation(AccommodationDTO accommodation) {
+        this.accommodation = accommodation;
     }
 
     public Set<Image> getImages() {

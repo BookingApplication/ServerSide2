@@ -44,6 +44,7 @@ public class AccountController {
         }
     }
 
+    @PreAuthorize("hasAnyRole('GUEST','HOST','ADMIN')")
     @PostMapping("/{userId}/profile-picture")
     public ResponseEntity<String> uploadProfilePicture(
             @PathVariable Long userId,
@@ -55,6 +56,7 @@ public class AccountController {
 
     }
 
+    @PreAuthorize("hasAnyRole('GUEST','HOST','ADMIN')")
     @GetMapping(value= "/{userId}/profile-picture", produces = MediaType.IMAGE_JPEG_VALUE)
     public ResponseEntity<byte[]>  getImageWithMediaType(@PathVariable Long userId) throws IOException {
 

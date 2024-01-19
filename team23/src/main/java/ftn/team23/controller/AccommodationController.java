@@ -2,6 +2,7 @@ package ftn.team23.controller;
 
 import ftn.team23.dto.AccommodationDTO;
 import ftn.team23.dto.AccommodationWithImagesDTO;
+import ftn.team23.entities.Reservation;
 import ftn.team23.service.interfaces.IAccommodationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -9,6 +10,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Set;
@@ -36,7 +38,6 @@ public class AccommodationController {
     }
 
 
-    @PreAuthorize("hasAnyRole('HOST','GUEST','ADMIN')")
     @GetMapping(value="/getDetails/{id}")
     public AccommodationWithImagesDTO GetAccommodationDetails(@PathVariable Long id){
         AccommodationWithImagesDTO result = service.getAccommodationDetails(id);
@@ -70,15 +71,19 @@ public class AccommodationController {
         {
             return new ResponseEntity<>(true, HttpStatus.OK);
         }
-        return new ResponseEntity<>(false, HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<>(false, HttpStatus.BAD_REQUEST);
     }
 
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping(value = "/deny-accommodation")
     public ResponseEntity<Boolean> denyAccommodation(@RequestBody Long id){
-        service.denyAccommodation(id);
-        return new ResponseEntity<>(true, HttpStatus.OK);
+        if(service.denyAccommodation(id))
+        {
+            return new ResponseEntity<>(true, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(false, HttpStatus.BAD_REQUEST);
     }
+
 
 
 }

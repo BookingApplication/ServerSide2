@@ -89,6 +89,7 @@ public class WebSecurityConfig {
                     .requestMatchers(new AntPathRequestMatcher("/guest/verify/**")).permitAll()
                     .requestMatchers(new AntPathRequestMatcher("/host/verify/**")).permitAll()
                     .requestMatchers(new AntPathRequestMatcher("/administrator/verify/**")).permitAll()
+                    .requestMatchers(new AntPathRequestMatcher("accommodation/getDetails/*")).permitAll()
                     .requestMatchers(new AntPathRequestMatcher("/api/whoami")).hasRole("GUEST")
                     .anyRequest().authenticated();
            });

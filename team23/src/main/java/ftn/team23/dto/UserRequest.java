@@ -10,7 +10,6 @@ public class UserRequest {
     private String surname;
     private String livingAddress;
     private String telephoneNumber;
-    private Boolean registerAsGuest;
 
     public UserRequest(){}
 
@@ -80,13 +79,4 @@ public class UserRequest {
     public void setTelephoneNumber(String telephoneNumber) {
         this.telephoneNumber = telephoneNumber;
     }
-
-    public Boolean getRegisterAsGuest() {
-        return registerAsGuest;
-    }
-
-    public void setRegisterAsGuest(Boolean registerAsGuest) {
-        this.registerAsGuest = registerAsGuest;
-    }
-
   }

@@ -1,14 +1,22 @@
 package ftn.team23.entities;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import ftn.team23.dto.AccommodationDTO;
 import ftn.team23.enums.AccommodationAmenity;
 import ftn.team23.enums.Status;
+import ftn.team23.util.IntervalSerializer;
+import ftn.team23.util.IntervalDeserializer;
+import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.Value;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
+import org.hibernate.validator.constraints.Length;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -20,28 +28,35 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@SQLDelete(sql
-        = "UPDATE accommodation "
-        + "SET deleted = true "
-        + "WHERE id = ?")
-@Where(clause = "deleted=false")
+@TableGenerator(name="accommodation_id_generator", table="primary_keys", pkColumnName="key_pk", pkColumnValue="accommodation", valueColumnName="value_pk")
 public class Accommodation implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = "accommodation_id_generator")
     private Long id;
 
+    @Length(min = 1, max=40, message = "{accommodation.name.length}")
     private String name;
     @Column(length = 2000)
+    @Length(min = 1, max=2000, message = "{accommodation.description.length}")
     private String description;
+    @Length(min = 1, max=100, message = "{accommodation.location.length}")
     private String location;
+    @PositiveOrZero(message = "{accommodation.minGuests.positiveOrZero}")
     private int minGuests;
+    @Positive(message = "{accommodation.maxGuests.positive}")
     private int maxGuests;
+    @Length(min=1, message = "{accommodation.accommodationType.Empty}")
     private String accommodationType;   //Studio, apartment, ...
+    @NotNull(message = "{accommodation.status.notNull}")
     private Status status;  //waiting_confirmation, approved, denied
+    @NotNull(message = "{accommodation.isPriceSetPerGuest.notNull}")
     private boolean isPriceSetPerGuest;
-    @Column(name = "deleted")
-    private boolean deleted;
+    @NotNull(message = "{accommodation.isReservationManual.notNull}")
+    private boolean isReservationManual;
+    @PositiveOrZero(message = "{accommodation.reservationDeadline.PositiveOrZero}")
+    private Integer reservationDeadline;   //reservation can be cancelled, this many days before it's start date.
 
     @ElementCollection(fetch = FetchType.EAGER)
     @Enumerated(EnumType.STRING)
@@ -52,6 +67,12 @@ public class Accommodation implements Serializable {
 
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "available_intervals", joinColumns = @JoinColumn(name = "accommodation_id"))
+    @AttributeOverrides({
+            @AttributeOverride(name = "startDate", column = @Column(name = "start_date")),
+            @AttributeOverride(name = "endDate", column = @Column(name = "end_date"))
+    })
+    @JsonSerialize(using = IntervalSerializer.class)
+    @JsonDeserialize(using = IntervalDeserializer.class)
     private Set<Interval> availableIntervals = new HashSet<Interval>();
 
     @OneToMany(cascade = CascadeType.ALL)
@@ -59,6 +80,7 @@ public class Accommodation implements Serializable {
     private Set<Image> images = new HashSet<Image>();
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="host_id")
     private Host host;
 
     public Accommodation(AccommodationDTO a)

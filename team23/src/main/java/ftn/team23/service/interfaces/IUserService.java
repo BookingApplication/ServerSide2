@@ -19,8 +19,7 @@ public interface IUserService {
     UserRequest signupAsGuest(UserRequest guestData);
     UserRequest updateGuest(UserRequest userRequest);
     void verifyGuest(String code);
-    boolean deleteGuest();
-    void deleteGuestByEmail(String email);
+    String deleteGuest(Long id);
     Guest findGuestByEmail(String email);
     Guest findGuestById(Long userId);
     List<UserRequest> findAllGuests();
@@ -28,15 +27,13 @@ public interface IUserService {
     UserRequest signupAsHost(UserRequest hostData);
     UserRequest updateHost(UserRequest userRequest);
     void verifyHost(String code);
-    boolean deleteHost();
-    void deleteHostByEmail(String email);
+    String deleteHost(Long id);
     Host findHostByEmail(String email);
     Host findHostById(Long userId);
     List<UserRequest> findAllHosts();
 
     UserRequest updateAdmin(UserRequest userRequest);
     void verifyAdmin(String code);
-    void deleteAdminByEmail(String email);
     Administrator findAdminByEmail(String email);
     Administrator findAdminById(Long userId);
     List<UserRequest> findAllAdmins();

@@ -35,10 +35,16 @@ public class HostController {
         userService.verifyHost(code);
     }
 
-    @PreAuthorize("hasRole('GUEST')")
-    @DeleteMapping("/delete")
-    public ResponseEntity<Void> deleteAccount() {
-        boolean succes = userService.deleteHost();
-        return new ResponseEntity<>(HttpStatus.OK);
+    @PreAuthorize("hasRole('HOST')")
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<String> deleteAccount(@PathVariable Long id) {
+        String result = userService.deleteHost(id);
+        if (result.equals("Host does not exist.")) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        else if (result.equals("Unable to delete account. There are still active reservations.")){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>(result, HttpStatus.OK);
     }
 }
