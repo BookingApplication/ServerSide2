@@ -4,10 +4,12 @@ import ftn.team23.dto.UserRequest;
 import ftn.team23.entities.Administrator;
 import ftn.team23.entities.Guest;
 import ftn.team23.entities.Host;
+import jakarta.mail.MessagingException;
 import org.springframework.web.multipart.MultipartFile;
 //import jakarta.mail.MessagingException;
 //import java.io.UnsupportedEncodingException;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 public interface IUserService {
@@ -16,7 +18,7 @@ public interface IUserService {
     UserRequest getAccountData();
     UserRequest updateAccount(UserRequest userRequest);
 
-    UserRequest signupAsGuest(UserRequest guestData);
+    UserRequest signupAsGuest(UserRequest guestData, String siteURL)throws UnsupportedEncodingException, MessagingException;
     UserRequest updateGuest(UserRequest userRequest);
     void verifyGuest(String code);
     String deleteGuest(Long id);
@@ -24,7 +26,7 @@ public interface IUserService {
     Guest findGuestById(Long userId);
     List<UserRequest> findAllGuests();
 
-    UserRequest signupAsHost(UserRequest hostData);
+    UserRequest signupAsHost(UserRequest hostData,  String requestUrl) throws UnsupportedEncodingException, MessagingException;
     UserRequest updateHost(UserRequest userRequest);
     void verifyHost(String code);
     String deleteHost(Long id);

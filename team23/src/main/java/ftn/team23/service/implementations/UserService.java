@@ -2,12 +2,14 @@ package ftn.team23.service.implementations;
 
 import ftn.team23.dto.UserRequest;
 import ftn.team23.entities.*;
+import ftn.team23.enums.AccommodationAmenity;
 import ftn.team23.enums.Status;
 import ftn.team23.repositories.*;
-import ftn.team23.service.interfaces.ISendGridService;
+import ftn.team23.service.interfaces.IJavaMailService;
+//import ftn.team23.service.interfaces.ISendGridService;
 import ftn.team23.service.interfaces.IUserService;
 import ftn.team23.service.interfaces.RoleService;
-//import jakarta.mail.internet.MimeMessage;
+import jakarta.mail.internet.MimeMessage;
 import ftn.team23.util.ImageUploadUtil;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
@@ -16,13 +18,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
 import org.springframework.http.HttpStatus;
-//import org.springframework.mail.javamail.JavaMailSender;
-//import org.springframework.mail.javamail.MimeMessageHelper;
-//import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-//import org.springframework.security.core.Authentication;
-import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -33,8 +33,8 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
-//import jakarta.mail.MessagingException;
-//import java.io.UnsupportedEncodingException;
+import jakarta.mail.MessagingException;
+import java.io.UnsupportedEncodingException;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -54,8 +54,10 @@ public class UserService implements IUserService {
     @Autowired
     IAdminRepository adminRepository;
 
+//    @Autowired
+//    ISendGridService sendGridService;
     @Autowired
-    ISendGridService sendGridService;
+    IJavaMailService javaMailService;
     @Autowired
     PasswordEncoder passwordEncoder;
     @Autowired
@@ -79,7 +81,6 @@ public class UserService implements IUserService {
     @Override
     public UserRequest getAccountData() {
         User u = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
         String email = u.getEmail();
         Guest g = findGuestByEmail(email);
         if (g != null) return new UserRequest(g);
@@ -116,31 +117,25 @@ public class UserService implements IUserService {
 
     //guest//
     @Override
-    public UserRequest signupAsGuest(UserRequest userRequest) {
-        Optional<Guest> found = guestRepository.findByEmail(userRequest.getEmail());
-
-        String verificationCode = RandomString.make(64);
-        String address = "http://localhost:8080/guest/verify?code=";
-        String verificationLink = String.format("<a href=\"%s%s\">", address, verificationCode);
-        //http://localhost:8080/guest/verify?code=unique-code
-
-        try {
-            sendGridService.sendVerificationEmail(userRequest.getEmail(), verificationLink);
-            found.get().setAccountVerificationRequestDate(new Timestamp(System.currentTimeMillis()));
-        } catch (Exception e) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.toString());
-        }
+    public UserRequest signupAsGuest(UserRequest userRequest, String requestUrl) throws UnsupportedEncodingException, MessagingException {
 
         String encryptedPassword = passwordEncoder.encode(userRequest.getPassword());
         Guest guestToRegister = new Guest(userRequest.getEmail(), encryptedPassword, userRequest.getName(), userRequest.getSurname(), userRequest.getLivingAddress(), userRequest.getTelephoneNumber());
+        guestToRegister.setLastPasswordResetDate(new Timestamp(System.currentTimeMillis()));
         List<Role> roles = roleService.findByName("ROLE_GUEST");
         guestToRegister.setRoles(roles);
+
+        String verificationCode = RandomString.make(64);
+        guestToRegister.setCodeActivation(verificationCode);
+        guestToRegister.setAccountVerificationRequestDate(new Timestamp(System.currentTimeMillis()));
 
         try {
             Guest result = guestRepository.save(guestToRegister);
             guestRepository.flush();
+            javaMailService.sendVerificationEmail(guestToRegister.getEmail(), guestToRegister.getName(), verificationCode, requestUrl, "guest");
             return new UserRequest(result);
-        } catch (RuntimeException ex) {
+        } catch (RuntimeException ex)
+        {
             Throwable e = ex;
             Throwable c = null;
             while ((e != null) && !((c = ex.getCause()) instanceof ConstraintViolationException)) {
@@ -273,30 +268,24 @@ public class UserService implements IUserService {
     //host//
 
     @Override
-    public UserRequest signupAsHost(UserRequest userRequest) {
-        Optional<Host> found = hostRepository.findByEmail(userRequest.getEmail());
+    public UserRequest signupAsHost(UserRequest userRequest, String requestUrl) throws UnsupportedEncodingException, MessagingException {
+        String encryptedPassword = passwordEncoder.encode(userRequest.getPassword());
+        Host host = new Host(userRequest.getEmail(), encryptedPassword, userRequest.getName(), userRequest.getSurname(), userRequest.getLivingAddress(), userRequest.getTelephoneNumber());
+        host.setLastPasswordResetDate(new Timestamp(System.currentTimeMillis()));
+        List<Role> roles = roleService.findByName("ROLE_HOST");
+        host.setRoles(roles);
 
         String verificationCode = RandomString.make(64);
-        String address = "http://localhost:8080/host/verify?code=";
-        String verificationLink = String.format("<a href=\"%s%s\">", address, verificationCode);
+        host.setCodeActivation(verificationCode);
+        host.setAccountVerificationRequestDate(new Timestamp(System.currentTimeMillis()));
 
         try {
-            sendGridService.sendVerificationEmail(userRequest.getEmail(), verificationLink);
-            found.get().setAccountVerificationRequestDate(new Timestamp(System.currentTimeMillis()));
-        } catch (Exception e) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.toString());
-        }
-
-        String encryptedPassword = passwordEncoder.encode(userRequest.getPassword());
-        Host hostToRegister = new Host(userRequest.getEmail(), encryptedPassword, userRequest.getName(), userRequest.getSurname(), userRequest.getLivingAddress(), userRequest.getTelephoneNumber());
-        List<Role> roles = roleService.findByName("ROLE_HOST");
-        hostToRegister.setRoles(roles);
-
-        try {
-            Host result = hostRepository.save(hostToRegister);
+            Host result = hostRepository.save(host);
             hostRepository.flush();
+            javaMailService.sendVerificationEmail(host.getEmail(), host.getName(), verificationCode, requestUrl, "host");
             return new UserRequest(result);
-        } catch (RuntimeException ex) {
+        } catch (RuntimeException ex)
+        {
             Throwable e = ex;
             Throwable c = null;
             while ((e != null) && !((c = ex.getCause()) instanceof ConstraintViolationException)) {

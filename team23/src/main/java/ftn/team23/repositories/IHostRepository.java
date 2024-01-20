@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface IHostRepository extends JpaRepository<Host, Long>{
@@ -31,4 +32,11 @@ public interface IHostRepository extends JpaRepository<Host, Long>{
 
     @Query("select h from Host h join fetch h.accommodations a where h.id = ?1")
     Optional<Host> getHostWithAccommodations(Long id);
+
+    @Query(value = "SELECT h.id, a.id, a.host_id, r.* FROM host h " +
+            "JOIN accommodation a ON h.id = a.host_id " +
+            "LEFT JOIN reservation r ON a.id = r.accommodation_id AND r.status = 2 " +
+            "WHERE h.id = ?1", nativeQuery = true)
+    List<Object[]> getHostWithAccommodationsAndReservations(Long hostId);
+
 }

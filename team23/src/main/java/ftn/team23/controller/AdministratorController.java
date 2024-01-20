@@ -4,7 +4,7 @@ import ftn.team23.dto.AccommodationDTO;
 import ftn.team23.dto.AccommodationWithImagesDTO;
 import ftn.team23.service.interfaces.IAccommodationService;
 import ftn.team23.service.interfaces.IUserService;
-import org.apache.http.protocol.HTTP;
+//import org.apache.http.protocol.HTTP;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;

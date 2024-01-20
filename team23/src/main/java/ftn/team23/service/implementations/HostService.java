@@ -6,7 +6,7 @@ import ftn.team23.entities.Host;
 import ftn.team23.entities.Role;
 import ftn.team23.repositories.IHostRepository;
 import ftn.team23.service.interfaces.IHostService;
-import ftn.team23.service.interfaces.ISendGridService;
+//import ftn.team23.service.interfaces.ISendGridService;
 import ftn.team23.service.interfaces.RoleService;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
@@ -27,8 +27,6 @@ import java.util.Set;
 public class HostService implements IHostService {
     @Autowired
     IHostRepository hostRepository;
-    @Autowired
-    ISendGridService sendGridService;
     @Autowired
     PasswordEncoder passwordEncoder;
     @Autowired

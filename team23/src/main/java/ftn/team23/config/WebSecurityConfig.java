@@ -107,6 +107,8 @@ public class WebSecurityConfig {
         return (web) -> web.ignoring().requestMatchers(HttpMethod.POST, "/auth/login")
                 .requestMatchers(HttpMethod.GET, "/guest/verify/**")
                 .requestMatchers(HttpMethod.GET, "/host/verify/**")
+                .requestMatchers(HttpMethod.POST,"/account/*/profile-picture")
+
                 // Ovim smo dozvolili pristup statickim resursima aplikacije
                 .requestMatchers(HttpMethod.GET, "/", "/webjars/*", "/*.html", "favicon.ico",
                         "/*/*.html", "/*/*.css", "/*/*.js","/guest/verify/**","/host/verify/**");

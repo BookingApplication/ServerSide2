@@ -44,7 +44,7 @@ public class AccountController {
         }
     }
 
-    @PreAuthorize("hasAnyRole('GUEST','HOST','ADMIN')")
+//    @PreAuthorize("hasAnyRole('GUEST','HOST','ADMIN')")
     @PostMapping("/{userId}/profile-picture")
     public ResponseEntity<String> uploadProfilePicture(
             @PathVariable Long userId,

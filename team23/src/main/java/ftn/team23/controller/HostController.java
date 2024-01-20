@@ -4,6 +4,8 @@ import ftn.team23.dto.UserRequest;
 import ftn.team23.service.implementations.HostService;
 import ftn.team23.service.implementations.UserService;
 import ftn.team23.service.interfaces.IUserService;
+import jakarta.mail.MessagingException;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
@@ -13,21 +15,28 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.io.UnsupportedEncodingException;
+
 @RestController
-@RequestMapping(value = "/host", consumes = "application/json", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/host", produces = MediaType.APPLICATION_JSON_VALUE)
 public class HostController {
 
     @Autowired
     private IUserService userService;
 
-    @PostMapping(path = "/register")
-    public ResponseEntity<UserRequest> signup(@RequestBody UserRequest userRequest) {
+    @PostMapping(path = "/register", consumes = "text/html")
+    public ResponseEntity<UserRequest> signup(@RequestBody UserRequest userRequest, HttpServletRequest request) throws UnsupportedEncodingException, MessagingException {
         if(userService.IsEmailUniqueAcrossAllTables(userRequest.getEmail())) {
-            UserRequest result = userService.signupAsHost(userRequest);
+            UserRequest result = userService.signupAsHost(userRequest, getSiteURL(request));
             return new ResponseEntity<>(result, HttpStatus.CREATED);
         }
         else
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User with that email already exists.");
+    }
+
+    private String getSiteURL(HttpServletRequest request) {
+        String siteURL = request.getRequestURL().toString();
+        return siteURL.replace(request.getServletPath(), "");
     }
 
     @GetMapping(path = "/verify")

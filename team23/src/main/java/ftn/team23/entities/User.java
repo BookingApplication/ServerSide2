@@ -58,7 +58,7 @@ public class User implements Serializable, UserDetails {
     private String codeActivation;  //kod koji je poslat u emailu za aktivaciju naloga
     @NotNull(message = "{user.accountVerificationRequestDate.notNull}")
     private Timestamp accountVerificationRequestDate;   //datum slanja zahteva za aktivaciju naloga
-    @Length(min=1, max=50,message = "{user.profilePicture.length}")
+    @Length(max=50,message = "{user.profilePicture.length}")
     private String profilePicture;
 
     @ManyToMany(fetch = FetchType.EAGER)

@@ -5,7 +5,6 @@ import ftn.team23.entities.Guest;
 import ftn.team23.entities.Role;
 import ftn.team23.repositories.IGuestRepository;
 import ftn.team23.service.interfaces.IGuestService;
-import ftn.team23.service.interfaces.ISendGridService;
 import ftn.team23.service.interfaces.RoleService;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
@@ -24,8 +23,6 @@ public class GuestService implements IGuestService {
 
     @Autowired
     IGuestRepository guestRepository;
-    @Autowired
-    ISendGridService sendGridService;
     @Autowired
     PasswordEncoder passwordEncoder;
     @Autowired

@@ -3,9 +3,11 @@ package ftn.team23.controller;
 import ftn.team23.dto.UserRequest;
 import ftn.team23.entities.Guest;
 import ftn.team23.service.implementations.UserService;
+import jakarta.mail.MessagingException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
+import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -14,12 +16,14 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
-import javax.mail.MessagingException;
 import java.io.UnsupportedEncodingException;
+
+//import javax.mail.MessagingException;
+//import java.io.UnsupportedEncodingException;
 
 @CrossOrigin
 @RestController
-@RequestMapping(value = "/guest", consumes = "application/json", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/guest", produces = MediaType.APPLICATION_JSON_VALUE)
 public class GuestController {
 
     @Autowired
@@ -31,12 +35,17 @@ public class GuestController {
     }
 
     @PostMapping(path = "/register")
-    public ResponseEntity<UserRequest> signup(@RequestBody UserRequest userRequest) {
+    public ResponseEntity<UserRequest> signup(@RequestBody UserRequest userRequest, HttpServletRequest request)  throws UnsupportedEncodingException, MessagingException {
         if (userService.IsEmailUniqueAcrossAllTables(userRequest.getEmail())) {
-            UserRequest result = userService.signupAsGuest(userRequest);
+            UserRequest result = userService.signupAsGuest(userRequest, getSiteURL(request));
             return new ResponseEntity<>(result, HttpStatus.CREATED);
         } else
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User with that email already exists.");
+    }
+
+    private String getSiteURL(HttpServletRequest request) {
+        String siteURL = request.getRequestURL().toString();
+        return siteURL.replace(request.getServletPath(), "");
     }
 
     @GetMapping(path = "/verify")
