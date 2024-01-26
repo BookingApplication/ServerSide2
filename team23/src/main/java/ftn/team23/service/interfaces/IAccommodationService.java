@@ -8,7 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.Set;
 
 public interface IAccommodationService {
-    void createAccommodation(AccommodationDTO accommodationDetails, MultipartFile[] multipartFiles);
+    void createAccommodation(AccommodationDTO accommodationDetails, MultipartFile[] multipartFiles, String email);
 
     void updateAccommodationData(AccommodationDTO updatedAccommodationDetails, MultipartFile[] multipartFiles);
 

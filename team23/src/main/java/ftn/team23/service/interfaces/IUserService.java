@@ -15,11 +15,11 @@ import java.util.List;
 public interface IUserService {
 
     boolean IsEmailUniqueAcrossAllTables(String email);
-    UserRequest getAccountData();
-    UserRequest updateAccount(UserRequest userRequest);
+    UserRequest getAccountData(String email);
+    UserRequest updateAccount(UserRequest userRequest, String email);
 
     UserRequest signupAsGuest(UserRequest guestData, String siteURL)throws UnsupportedEncodingException, MessagingException;
-    UserRequest updateGuest(UserRequest userRequest);
+    UserRequest updateGuest(UserRequest userRequest, String email);
     void verifyGuest(String code);
     String deleteGuest(Long id);
     Guest findGuestByEmail(String email);
@@ -27,14 +27,14 @@ public interface IUserService {
     List<UserRequest> findAllGuests();
 
     UserRequest signupAsHost(UserRequest hostData,  String requestUrl) throws UnsupportedEncodingException, MessagingException;
-    UserRequest updateHost(UserRequest userRequest);
+    UserRequest updateHost(UserRequest userRequest, String email);
     void verifyHost(String code);
     String deleteHost(Long id);
     Host findHostByEmail(String email);
     Host findHostById(Long userId);
     List<UserRequest> findAllHosts();
 
-    UserRequest updateAdmin(UserRequest userRequest);
+    UserRequest updateAdmin(UserRequest userRequest, String email);
     void verifyAdmin(String code);
     Administrator findAdminByEmail(String email);
     Administrator findAdminById(Long userId);

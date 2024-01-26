@@ -7,8 +7,7 @@ import ftn.team23.entities.Host;
 import ftn.team23.entities.Image;
 import ftn.team23.entities.Reservation;
 import ftn.team23.enums.Status;
-import ftn.team23.repositories.IAccommodationRepository;
-import ftn.team23.repositories.IReservationRepository;
+import ftn.team23.repositories.*;
 import ftn.team23.service.interfaces.IAccommodationService;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
@@ -37,6 +36,8 @@ public class AccommodationService implements IAccommodationService {
     IAccommodationRepository repository;
     @Autowired
     IReservationRepository reservationRepository;
+    @Autowired
+    IHostRepository hostRepository;
 
     @Value("${accommodation-pictures-path}")
     String uploadPath;
@@ -44,7 +45,7 @@ public class AccommodationService implements IAccommodationService {
 
     @Override
     @Transactional(rollbackFor = {IOException.class, RuntimeException.class})
-    public void createAccommodation(AccommodationDTO accommodationDetails, MultipartFile[] multipartFiles) {
+    public void createAccommodation(AccommodationDTO accommodationDetails, MultipartFile[] multipartFiles, String email) {
         Host host = (Host) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
         List<Accommodation> accommodations = repository.findByHost(host.getId());
@@ -199,8 +200,6 @@ public class AccommodationService implements IAccommodationService {
     @Override
     public Boolean approveAccommodation(Long id)
     {
-        //todo what must be checked before approval?
-
         Optional<Accommodation> found = repository.findById(id);
         if(found.isEmpty())
             return false;

@@ -20,31 +20,30 @@ public class AccountController {
     @Autowired
     IUserService service;
 
-    @GetMapping(value = "/get")
+    @GetMapping(value = "/get/{email}")
     @PreAuthorize("hasAnyRole('GUEST','HOST','ADMIN')")
-    ResponseEntity<UserRequest> getAccountData()
+    ResponseEntity<UserRequest> getAccountData(@PathVariable String email)
     {
-        UserRequest result = service.getAccountData();
+        UserRequest result = service.getAccountData(email);
         if (result == null) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
-    @PostMapping(value="/update")
+    @PostMapping(value="/update/{email}")
     @PreAuthorize("hasAnyRole('GUEST','HOST','ADMIN')")
-    ResponseEntity<UserRequest> updateAccount(@RequestBody UserRequest data){
+    ResponseEntity<UserRequest> updateAccount(@RequestBody UserRequest data, @PathVariable String email){
         if(!SecurityContextHolder.getContext().getAuthentication().getName().equals(data.getEmail())
                 && !service.IsEmailUniqueAcrossAllTables(data.getEmail())) {
             //ako je email izmenjen, a takav vec postoji u sistemu
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         else {
-            UserRequest result = service.updateAccount(data);
+            UserRequest result = service.updateAccount(data, email);
             if (result == null) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
             return new ResponseEntity<>(result, HttpStatus.OK);
         }
     }
 
-//    @PreAuthorize("hasAnyRole('GUEST','HOST','ADMIN')")
     @PostMapping("/{userId}/profile-picture")
     public ResponseEntity<String> uploadProfilePicture(
             @PathVariable Long userId,

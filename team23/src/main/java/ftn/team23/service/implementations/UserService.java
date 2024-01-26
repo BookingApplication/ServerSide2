@@ -54,8 +54,6 @@ public class UserService implements IUserService {
     @Autowired
     IAdminRepository adminRepository;
 
-//    @Autowired
-//    ISendGridService sendGridService;
     @Autowired
     IJavaMailService javaMailService;
     @Autowired
@@ -79,9 +77,7 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public UserRequest getAccountData() {
-        User u = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        String email = u.getEmail();
+    public UserRequest getAccountData(String email) {
         Guest g = findGuestByEmail(email);
         if (g != null) return new UserRequest(g);
         Host h = findHostByEmail(email);
@@ -93,23 +89,22 @@ public class UserService implements IUserService {
 
 
     @Override
-    public UserRequest updateAccount(UserRequest userRequest) {
-        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+    public UserRequest updateAccount(UserRequest userRequest, String email) {
         Guest g = findGuestByEmail(email);
         if (g != null) {
-            UserRequest result = updateGuest(userRequest);
+            UserRequest result = updateGuest(userRequest, email);
             return result;
         }
 
         Host h = findHostByEmail(email);
         if (h != null) {
-            UserRequest result = updateHost(userRequest);
+            UserRequest result = updateHost(userRequest, email);
             return result;
         }
 
         Administrator a = findAdminByEmail(email);
         if (a != null) {
-            UserRequest result = updateAdmin(userRequest);
+            UserRequest result = updateAdmin(userRequest, email);
             return result;
         }
         return null;
@@ -169,8 +164,7 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public UserRequest updateGuest(UserRequest userRequest) {
-        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+    public UserRequest updateGuest(UserRequest userRequest, String email) {
         Optional<Guest> found = guestRepository.findByEmail(email);
         if (found.isEmpty()) {
             return null;
@@ -305,9 +299,8 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public UserRequest updateHost(UserRequest userRequest) {
-        String email = SecurityContextHolder.getContext().getAuthentication().getName();
-        Optional<Host> found = hostRepository.findByEmail(email);
+    public UserRequest updateHost(UserRequest userRequest, String oldEmail) {
+        Optional<Host> found = hostRepository.findByEmail(oldEmail);
         if (found.isEmpty()) {
             return null;
         }
@@ -328,7 +321,7 @@ public class UserService implements IUserService {
         try {
             Host result = hostRepository.save(hostToUpdate);
             hostRepository.flush();
-            if (!hostToUpdate.getEmail().equals(email))
+            if (!hostToUpdate.getEmail().equals(oldEmail))
                 SecurityContextHolder.clearContext();
             return new UserRequest(result);
         } catch (RuntimeException ex) {
@@ -418,8 +411,7 @@ public class UserService implements IUserService {
     //admin
 
     @Override
-    public UserRequest updateAdmin(UserRequest userRequest) {
-        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+    public UserRequest updateAdmin(UserRequest userRequest, String email) {
         Optional<Administrator> found = adminRepository.findByEmail(email);
         if (found.isEmpty()) {
             return null;

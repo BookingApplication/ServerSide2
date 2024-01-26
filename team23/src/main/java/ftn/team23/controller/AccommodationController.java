@@ -4,7 +4,9 @@ import ftn.team23.dto.AccommodationDTO;
 import ftn.team23.dto.AccommodationWithImagesDTO;
 import ftn.team23.entities.Reservation;
 import ftn.team23.service.interfaces.IAccommodationService;
+import jakarta.websocket.server.PathParam;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -23,11 +25,12 @@ public class AccommodationController {
     IAccommodationService service;
 
     @PreAuthorize("hasRole('HOST')")
-    @PostMapping(value = "/create", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
+    @PostMapping(value = "/create/{email}", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
     public void CreateAccommodation(@RequestPart("accommodation") AccommodationDTO accommodationDTO,
-                                    @RequestPart("imageFile") MultipartFile[] multipartFiles){
+                                    @RequestPart("imageFile") MultipartFile[] multipartFiles,
+                                    @PathVariable String email){
 
-        service.createAccommodation(accommodationDTO, multipartFiles);
+        service.createAccommodation(accommodationDTO, multipartFiles,email);
     }
 
     @PreAuthorize("hasRole('HOST')")
