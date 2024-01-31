@@ -90,6 +90,7 @@ public class WebSecurityConfig {
                     .requestMatchers(new AntPathRequestMatcher("/host/verify/**")).permitAll()
                     .requestMatchers(new AntPathRequestMatcher("/administrator/verify/**")).permitAll()
                     .requestMatchers(new AntPathRequestMatcher("accommodation/getDetails/*")).permitAll()
+                    .requestMatchers(new AntPathRequestMatcher("accommodation/getAllAvailable")).permitAll()
                     .requestMatchers(new AntPathRequestMatcher("/api/whoami")).hasRole("GUEST")
                     .anyRequest().authenticated();
            });
@@ -108,6 +109,9 @@ public class WebSecurityConfig {
                 .requestMatchers(HttpMethod.GET, "/guest/verify/**")
                 .requestMatchers(HttpMethod.GET, "/host/verify/**")
                 .requestMatchers(HttpMethod.POST,"/account/*/profile-picture")
+                .requestMatchers(HttpMethod.GET, "accommodation/getDetails/*")
+                .requestMatchers(HttpMethod.GET, "accommodation/getAllAvailable")
+
 
                 // Ovim smo dozvolili pristup statickim resursima aplikacije
                 .requestMatchers(HttpMethod.GET, "/", "/webjars/*", "/*.html", "favicon.ico",

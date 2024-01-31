@@ -2,16 +2,12 @@ package ftn.team23.service.implementations;
 
 import ftn.team23.dto.AccommodationDTO;
 import ftn.team23.dto.AccommodationWithImagesDTO;
-import ftn.team23.entities.Accommodation;
-import ftn.team23.entities.Host;
-import ftn.team23.entities.Image;
-import ftn.team23.entities.Reservation;
+import ftn.team23.entities.*;
 import ftn.team23.enums.Status;
 import ftn.team23.repositories.*;
 import ftn.team23.service.interfaces.IAccommodationService;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
-import org.apache.logging.log4j.CloseableThreadContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -26,7 +22,6 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.sql.Timestamp;
 import java.util.*;
 
 @Service
@@ -62,7 +57,7 @@ public class AccommodationService implements IAccommodationService {
         newAccommodation.setStatus(Status.WAITING_CONFIRMATION);
         newAccommodation.setReservationManual(true);
         newAccommodation.setReservationDeadline(0);
-        newAccommodation.setAvailableIntervals(accommodationDetails.getIntervals());
+        newAccommodation.setAvailableIntervalsAndPrices(accommodationDetails.getIntervalsAndPrices());
 
         Set<Image> images = new HashSet<>();
         try {
@@ -124,8 +119,7 @@ public class AccommodationService implements IAccommodationService {
         updatedAccommodation.setMaxGuests(updatedAccommodationDetails.getMaxNbOfGuests());
         updatedAccommodation.setAccommodationType(updatedAccommodationDetails.getAccommodationType());
         updatedAccommodation.setAmenities(updatedAccommodationDetails.getAmenities());
-        updatedAccommodation.setAvailableIntervals(updatedAccommodationDetails.getIntervals());
-        updatedAccommodation.setPrices(updatedAccommodationDetails.getPrices());
+        updatedAccommodation.setAvailableIntervalsAndPrices(updatedAccommodationDetails.getIntervalsAndPrices());
         updatedAccommodation.setPriceSetPerGuest(updatedAccommodationDetails.isPriceSetPerGuest());
         updatedAccommodation.setStatus(Status.WAITING_CONFIRMATION);
         updatedAccommodation.setReservationManual(updatedAccommodationDetails.isReservationManual());

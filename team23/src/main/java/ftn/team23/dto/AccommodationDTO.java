@@ -2,8 +2,7 @@ package ftn.team23.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import ftn.team23.entities.Accommodation;
-import ftn.team23.entities.Image;
-import ftn.team23.entities.Interval;
+import ftn.team23.entities.IntervalAndPrice;
 import ftn.team23.enums.AccommodationAmenity;
 
 import java.util.List;
@@ -18,8 +17,7 @@ public class AccommodationDTO {
     private Integer maxNbOfGuests;
     private String accommodationType;
     private Set<AccommodationAmenity> amenities;
-    private Set<Interval> intervals;
-    private List<Double> prices;
+    private Set<IntervalAndPrice> intervalsAndPrices;
     @JsonProperty("isPriceSetPerGuest")
     private boolean isPriceSetPerGuest;
     @JsonProperty("isReservationManual")
@@ -33,13 +31,13 @@ public class AccommodationDTO {
 
     public AccommodationDTO(Accommodation a){
         this(a.getId(), a.getName(), a.getDescription(), a.getLocation(), a.getMinGuests(), a.getMaxGuests(),
-                a.getAccommodationType(), a.getAmenities(), a.getAvailableIntervals(), a.getPrices(),
+                a.getAccommodationType(), a.getAmenities(), a.getAvailableIntervalsAndPrices(),
                 a.isPriceSetPerGuest());
     }
 
     public AccommodationDTO(Long id, String name, String description, String location, Integer minNbOfGuests,
                             Integer maxNbOfGuests, String accommodationType, Set<AccommodationAmenity> amenities,
-                            Set<Interval> intervals, List<Double> prices, boolean isPriceSetPerGuest) {
+                            Set<IntervalAndPrice> intervalsAndPrices, boolean isPriceSetPerGuest) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -48,8 +46,7 @@ public class AccommodationDTO {
         this.maxNbOfGuests = maxNbOfGuests;
         this.accommodationType = accommodationType;
         this.amenities = amenities;
-        this.intervals = intervals;
-        this.prices = prices;
+        this.intervalsAndPrices = intervalsAndPrices;
         this.isPriceSetPerGuest = isPriceSetPerGuest;
     }
 
@@ -109,14 +106,6 @@ public class AccommodationDTO {
         this.amenities = amenities;
     }
 
-    public List<Double> getPrices() {
-        return prices;
-    }
-
-    public void setPrices(List<Double> prices) {
-        this.prices = prices;
-    }
-
     public boolean isPriceSetPerGuest() {
         return isPriceSetPerGuest;
     }
@@ -125,12 +114,12 @@ public class AccommodationDTO {
         isPriceSetPerGuest = priceSetPerGuest;
     }
 
-    public Set<Interval> getIntervals() {
-        return intervals;
+    public Set<IntervalAndPrice> getIntervalsAndPrices() {
+        return intervalsAndPrices;
     }
 
-    public void setIntervals(Set<Interval> intervals) {
-        this.intervals = intervals;
+    public void setIntervalsAndPrices(Set<IntervalAndPrice> intervalsAndPrices) {
+        this.intervalsAndPrices = intervalsAndPrices;
     }
 
     public Long getId() {

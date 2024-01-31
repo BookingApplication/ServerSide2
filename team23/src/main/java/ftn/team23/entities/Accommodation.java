@@ -5,17 +5,13 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import ftn.team23.dto.AccommodationDTO;
 import ftn.team23.enums.AccommodationAmenity;
 import ftn.team23.enums.Status;
-import ftn.team23.util.IntervalSerializer;
-import ftn.team23.util.IntervalDeserializer;
-import jakarta.annotation.Nullable;
+import ftn.team23.util.IntervalAndPriceSerializer;
+import ftn.team23.util.IntervalAndPriceDeserializer;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Value;
-import org.hibernate.annotations.SQLDelete;
-import org.hibernate.annotations.Where;
 import org.hibernate.validator.constraints.Length;
 
 import java.io.Serializable;
@@ -32,7 +28,6 @@ import java.util.Set;
 public class Accommodation implements Serializable {
 
     @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @GeneratedValue(strategy = GenerationType.TABLE, generator = "accommodation_id_generator")
     private Long id;
 
@@ -63,17 +58,14 @@ public class Accommodation implements Serializable {
     private Set<AccommodationAmenity> amenities = new HashSet<AccommodationAmenity>();
 
     @ElementCollection(fetch = FetchType.EAGER)
-    private List<Double> prices = new ArrayList<Double>();
-
-    @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "available_intervals", joinColumns = @JoinColumn(name = "accommodation_id"))
     @AttributeOverrides({
             @AttributeOverride(name = "startDate", column = @Column(name = "start_date")),
-            @AttributeOverride(name = "endDate", column = @Column(name = "end_date"))
+            @AttributeOverride(name = "endDate", column = @Column(name = "end_date")),
     })
-    @JsonSerialize(using = IntervalSerializer.class)
-    @JsonDeserialize(using = IntervalDeserializer.class)
-    private Set<Interval> availableIntervals = new HashSet<Interval>();
+    @JsonSerialize(using = IntervalAndPriceSerializer.class)
+    @JsonDeserialize(using = IntervalAndPriceDeserializer.class)
+    private Set<IntervalAndPrice> availableIntervalsAndPrices = new HashSet<IntervalAndPrice>();
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "accommodation_id")
@@ -91,7 +83,6 @@ public class Accommodation implements Serializable {
         this.minGuests = a.getMinNbOfGuests();
         this.maxGuests = a.getMaxNbOfGuests();
         this.accommodationType = a.getAccommodationType();
-        this.prices = a.getPrices();
         this.amenities = a.getAmenities();
         this.isPriceSetPerGuest = a.isPriceSetPerGuest();
     }
@@ -103,7 +94,6 @@ public class Accommodation implements Serializable {
         this.minGuests = minGuests;
         this.maxGuests = maxGuests;
         this.accommodationType = accommodationType;
-        this.prices = prices;
         this.host = host;
         this.amenities = amenities;
     }

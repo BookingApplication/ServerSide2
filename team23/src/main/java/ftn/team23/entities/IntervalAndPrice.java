@@ -12,9 +12,11 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 @Embeddable
-public class Interval implements Serializable {
-    @NotNull(message = "{interval.startDate.notNull}")
+public class IntervalAndPrice implements Serializable {
+    @NotNull(message = "{intervalAndPrice.startDate.notNull}")
     private Long startDate;
-    @NotNull(message =  "{interval.endDate.notNull}")
+    @NotNull(message =  "{intervalAndPrice.endDate.notNull}")
     private Long endDate;
+    @NotNull(message = "{intervalAndPrice.price.notNull}")
+    private Double price;
 }

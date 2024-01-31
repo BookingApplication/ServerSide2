@@ -18,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.Set;
 
 @RestController
+@CrossOrigin
 @RequestMapping(value = "/accommodation")
 public class AccommodationController {
 
