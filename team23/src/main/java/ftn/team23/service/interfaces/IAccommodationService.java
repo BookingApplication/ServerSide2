@@ -2,9 +2,10 @@ package ftn.team23.service.interfaces;
 
 import ftn.team23.dto.AccommodationDTO;
 import ftn.team23.dto.AccommodationWithImagesDTO;
-import org.springframework.http.ResponseEntity;
+import ftn.team23.dto.SearchedAccommodationDTO;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
 import java.util.Set;
 
 public interface IAccommodationService {
@@ -23,4 +24,6 @@ public interface IAccommodationService {
     Boolean denyAccommodation(Long id);
 
     AccommodationWithImagesDTO getAccommodationDetails(Long id);
+
+    List<SearchedAccommodationDTO> getSearchedAccommodations(String location, Integer numberOfGuests, Long startDate, Long endDate);
 }

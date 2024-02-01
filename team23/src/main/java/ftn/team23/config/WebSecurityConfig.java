@@ -111,6 +111,8 @@ public class WebSecurityConfig {
                 .requestMatchers(HttpMethod.POST,"/account/*/profile-picture")
                 .requestMatchers(HttpMethod.GET, "accommodation/getDetails/*")
                 .requestMatchers(HttpMethod.GET, "accommodation/getAllAvailable")
+                .requestMatchers(HttpMethod.GET, "accommodation/get-filtered/**")
+                .requestMatchers(HttpMethod.GET, "accommodation/get-by-search-criteria/**")
 
 
                 // Ovim smo dozvolili pristup statickim resursima aplikacije

@@ -18,6 +18,8 @@ public class Reservation {
     private Long id;
     @NotNull(message = "{reservation.accommodationId.notNull}")
     private Long accommodationId;
+    @NotNull(message = "{reservation.userId.notNull}")
+    private Long userId;
     @NotNull(message = "{reservation.startDate.notNull}")
     private Long startDate;
     @NotNull(message = "{reservation.endDate.notNull}")

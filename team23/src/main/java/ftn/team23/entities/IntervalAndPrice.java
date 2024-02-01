@@ -19,4 +19,13 @@ public class IntervalAndPrice implements Serializable {
     private Long endDate;
     @NotNull(message = "{intervalAndPrice.price.notNull}")
     private Double price;
+
+    @Override
+    public String toString() {
+        return "IntervalAndPrice{" +
+                "startDate=" + this.startDate +
+                ", endDate=" + this.endDate +
+                ", price=" + this.price +
+                '}';
+    }
 }

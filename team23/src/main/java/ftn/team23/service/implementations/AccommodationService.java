@@ -2,8 +2,10 @@ package ftn.team23.service.implementations;
 
 import ftn.team23.dto.AccommodationDTO;
 import ftn.team23.dto.AccommodationWithImagesDTO;
+import ftn.team23.dto.SearchedAccommodationDTO;
 import ftn.team23.entities.*;
 import ftn.team23.enums.Status;
+import ftn.team23.mappers.AccommodationDTOMapper;
 import ftn.team23.repositories.*;
 import ftn.team23.service.interfaces.IAccommodationService;
 import jakarta.validation.ConstraintViolation;
@@ -36,6 +38,16 @@ public class AccommodationService implements IAccommodationService {
 
     @Value("${accommodation-pictures-path}")
     String uploadPath;
+
+
+
+    @Override
+    public List<SearchedAccommodationDTO> getSearchedAccommodations(String location, Integer numberOfGuests, Long startDate, Long endDate) {
+        List<Object> res = repository.getAccommodationsBySearchCriteria(location, numberOfGuests, startDate, endDate);
+
+        List<SearchedAccommodationDTO> searchResults = AccommodationDTOMapper.toSearchedAccommodationDTOs(res);
+        return searchResults;
+    }
 
 
     @Override

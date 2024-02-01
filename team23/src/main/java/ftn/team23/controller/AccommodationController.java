@@ -2,19 +2,18 @@ package ftn.team23.controller;
 
 import ftn.team23.dto.AccommodationDTO;
 import ftn.team23.dto.AccommodationWithImagesDTO;
-import ftn.team23.entities.Reservation;
+import ftn.team23.dto.SearchedAccommodationDTO;
 import ftn.team23.service.interfaces.IAccommodationService;
-import jakarta.websocket.server.PathParam;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 @RestController
@@ -88,6 +87,19 @@ public class AccommodationController {
         return new ResponseEntity<>(false, HttpStatus.BAD_REQUEST);
     }
 
+    @GetMapping(value = "/get-by-search-criteria")
+    public ResponseEntity<List<SearchedAccommodationDTO>> getAccommodationsBySearchCriteria(
+                                                  @RequestParam(value = "location" ,required = false) Optional<String> location,
+                                                  @RequestParam(value = "numberOfGuests", required = false) Optional<Integer> numberOfGuests,
+                                                  @RequestParam(value = "startDate", required = false) Optional<Long> startDate,
+                                                  @RequestParam(value = "endDate", required = false) Optional<Long> endDate)
+    {
+        List<SearchedAccommodationDTO> searchedObjects =  service.getSearchedAccommodations(location.orElse(" "),
+                                                                                            numberOfGuests.orElse(null),
+                                                                                            startDate.orElse(null),
+                                                                                            endDate.orElse(null));
+        return new ResponseEntity<>(searchedObjects, HttpStatus.OK);
+    }
 
 
 }
