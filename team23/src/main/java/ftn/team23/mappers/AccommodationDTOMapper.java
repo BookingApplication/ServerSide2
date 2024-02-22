@@ -1,5 +1,6 @@
 package ftn.team23.mappers;
 import ftn.team23.dto.SearchedAccommodationDTO;
+import ftn.team23.entities.Accommodation;
 import org.modelmapper.ModelMapper;
 
 import java.util.ArrayList;
@@ -29,5 +30,17 @@ public class AccommodationDTOMapper {
         return dto;
     }
 
+    public static SearchedAccommodationDTO accommodationToSearchedAccommodationDTO(Accommodation a){
+        return new SearchedAccommodationDTO(a);
+    }
+
+    public static List<SearchedAccommodationDTO> accommodationsToSearchedAccommodationDTOs(List<Accommodation> accommodations){
+        List<SearchedAccommodationDTO> dtos = new ArrayList<>();
+        for(Accommodation a : accommodations){
+            SearchedAccommodationDTO dto = accommodationToSearchedAccommodationDTO(a);
+            dtos.add(dto);
+        }
+        return dtos;
+    }
 
 }

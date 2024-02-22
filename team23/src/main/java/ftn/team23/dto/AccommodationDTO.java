@@ -134,7 +134,7 @@ public class AccommodationDTO {
         return isReservationManual;
     }
 
-    public void setReservationManual(boolean reservationMannual) {
-        isReservationManual = reservationMannual;
+    public void setReservationManual(boolean reservationManual) {
+        isReservationManual = reservationManual;
     }
 }

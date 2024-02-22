@@ -5,6 +5,7 @@ import ftn.team23.dto.AccommodationWithImagesDTO;
 import ftn.team23.dto.SearchedAccommodationDTO;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
@@ -25,5 +26,10 @@ public interface IAccommodationService {
 
     AccommodationWithImagesDTO getAccommodationDetails(Long id);
 
-    List<SearchedAccommodationDTO> getSearchedAccommodations(String location, Integer numberOfGuests, Long startDate, Long endDate);
+    List<SearchedAccommodationDTO> getSearchedAccommodations(String location, Integer numberOfGuests, Long startDate,
+                                                             Long endDate, Collection<String> amenities, String accommodationType,
+                                                             Double minPrice, Double maxPrice);
+
+    List<SearchedAccommodationDTO> getFilteredAccommodations(Collection<String> amenities, String accommodationType,
+                                                             Double minPrice, Double maxPrice);
 }

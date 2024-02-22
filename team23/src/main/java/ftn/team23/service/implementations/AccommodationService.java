@@ -4,6 +4,7 @@ import ftn.team23.dto.AccommodationDTO;
 import ftn.team23.dto.AccommodationWithImagesDTO;
 import ftn.team23.dto.SearchedAccommodationDTO;
 import ftn.team23.entities.*;
+import ftn.team23.enums.AccommodationAmenity;
 import ftn.team23.enums.Status;
 import ftn.team23.mappers.AccommodationDTOMapper;
 import ftn.team23.repositories.*;
@@ -39,23 +40,58 @@ public class AccommodationService implements IAccommodationService {
     @Value("${accommodation-pictures-path}")
     String uploadPath;
 
+    @Override
+    public List<SearchedAccommodationDTO> getSearchedAccommodations(String location, Integer numberOfGuests, Long startDate, Long endDate, Collection<String> amenities, String accommodationType, Double minPrice, Double maxPrice) {
+        List<AccommodationAmenity> accommodationAmenities;
+        Long amenitiesCount;
+        if (amenities != null) {
+            accommodationAmenities = amenities.stream().map(a -> AccommodationAmenity.valueOf(a)).toList();
+            amenitiesCount = accommodationAmenities.stream().count();
+        }
+        else{
+            accommodationAmenities = null;
+            amenitiesCount = 0L;
+        }
 
+        List<Accommodation> res = repository.getAccommodationsBySearchCriteria(location, numberOfGuests, startDate, endDate, accommodationAmenities, accommodationType, minPrice, maxPrice, amenitiesCount);
+
+        List<SearchedAccommodationDTO> searchResults = AccommodationDTOMapper.accommodationsToSearchedAccommodationDTOs(res);
+        return searchResults;
+    }
 
     @Override
-    public List<SearchedAccommodationDTO> getSearchedAccommodations(String location, Integer numberOfGuests, Long startDate, Long endDate) {
-        List<Object> res = repository.getAccommodationsBySearchCriteria(location, numberOfGuests, startDate, endDate);
+    public List<SearchedAccommodationDTO> getFilteredAccommodations(Collection<String> amenities, String accommodationType, Double minPrice, Double maxPrice) {
+        List<AccommodationAmenity> accommodationAmenities;
+        Long amenitiesCount;
+        if (amenities != null) {
+            accommodationAmenities = amenities.stream().map(a -> AccommodationAmenity.valueOf(a)).toList();
+            amenitiesCount = accommodationAmenities.stream().count();
+        }
+        else{
+            accommodationAmenities = null;
+            amenitiesCount = 0L;
+        }
 
-        List<SearchedAccommodationDTO> searchResults = AccommodationDTOMapper.toSearchedAccommodationDTOs(res);
-        return searchResults;
+        List<Accommodation> res = repository.findFilteredAccommodations(accommodationAmenities, accommodationType,
+                                                                        minPrice, maxPrice, amenitiesCount);
+        List<SearchedAccommodationDTO> result = new ArrayList<>();
+        for(Accommodation a : res){
+            SearchedAccommodationDTO dto = AccommodationDTOMapper.accommodationToSearchedAccommodationDTO(a);
+            result.add(dto);
+        }
+        return result;
     }
 
 
     @Override
     @Transactional(rollbackFor = {IOException.class, RuntimeException.class})
     public void createAccommodation(AccommodationDTO accommodationDetails, MultipartFile[] multipartFiles, String email) {
-        Host host = (Host) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Optional<Host> host = hostRepository.findByEmail(email);
+        if(host.isEmpty()){
+            return;
+        }
 
-        List<Accommodation> accommodations = repository.findByHost(host.getId());
+        List<Accommodation> accommodations = repository.findByHost(host.get().getId());
         if (!accommodations.isEmpty()) {
             for (Accommodation a : accommodations) {
                 if (a.getName().equals(accommodationDetails.getName())) {
@@ -65,7 +101,7 @@ public class AccommodationService implements IAccommodationService {
         }
 
         Accommodation newAccommodation = new Accommodation(accommodationDetails);
-        newAccommodation.setHost(host);
+        newAccommodation.setHost(host.get());
         newAccommodation.setStatus(Status.WAITING_CONFIRMATION);
         newAccommodation.setReservationManual(true);
         newAccommodation.setReservationDeadline(0);
@@ -137,9 +173,13 @@ public class AccommodationService implements IAccommodationService {
         updatedAccommodation.setReservationManual(updatedAccommodationDetails.isReservationManual());
 
         List<Reservation> reservations = reservationRepository.findAllByAccommodationId(updatedAccommodation.getId());
-
-
-
+//        Set<Interval> unavailableIntervals = new HashSet<>();
+//        for(Reservation r : reservations){
+//            if(r.getStatus() == Status.APPROVED)
+//                unavailableIntervals.add(new Interval(r.getStartDate(), r.getEndDate()));
+//        }
+//
+//        if(myINterval in unavailable intervals.date = opk)
 
         try{
             Set<Image> newImages = extractAndSaveImages(multipartFiles);
@@ -231,6 +271,8 @@ public class AccommodationService implements IAccommodationService {
     @Override
     public AccommodationWithImagesDTO getAccommodationDetails(Long id) {
         Optional<Accommodation> accommodation = repository.findByIdWithImages(id);
+        if (accommodation.isEmpty())
+            return null;
         AccommodationWithImagesDTO result = new AccommodationWithImagesDTO();
         AccommodationDTO accommodationDTO = new AccommodationDTO(accommodation.get());
         Set<Image> images = accommodation.get().getImages();
@@ -239,7 +281,6 @@ public class AccommodationService implements IAccommodationService {
         result.setImages(imagesFromFileSytem);
         return result;
     }
-
     @Override
     public void deleteAccommodation(Long id) {
         repository.deleteById(id);

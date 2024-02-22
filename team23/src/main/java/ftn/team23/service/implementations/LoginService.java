@@ -4,8 +4,6 @@ import ftn.team23.entities.Administrator;
 import ftn.team23.entities.Guest;
 import ftn.team23.entities.Host;
 import ftn.team23.entities.User;
-import ftn.team23.service.interfaces.IGuestService;
-import ftn.team23.service.interfaces.IHostService;
 import ftn.team23.service.interfaces.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
