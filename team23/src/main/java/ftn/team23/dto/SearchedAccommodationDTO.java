@@ -5,9 +5,17 @@ import ftn.team23.entities.Accommodation;
 import ftn.team23.entities.Image;
 import ftn.team23.entities.IntervalAndPrice;
 import ftn.team23.enums.AccommodationAmenity;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.util.HashSet;
 import java.util.Set;
 
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class SearchedAccommodationDTO {
 
     private Long id;
@@ -24,7 +32,6 @@ public class SearchedAccommodationDTO {
     @JsonProperty("isReservationManual")
     private boolean isReservationManual;
     private Set<Image> images;
-
 
 
     public SearchedAccommodationDTO(Object[] objects){
@@ -114,102 +121,5 @@ public class SearchedAccommodationDTO {
         this.isPriceSetPerGuest = isPriceSetPerGuest;
         this.images = images;
     }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public String getLocation() {
-        return location;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
-    }
-
-    public Integer getMinNbOfGuests() {
-        return minNbOfGuests;
-    }
-
-    public void setMinNbOfGuests(Integer minNbOfGuests) {
-        this.minNbOfGuests = minNbOfGuests;
-    }
-
-    public Integer getMaxNbOfGuests() {
-        return maxNbOfGuests;
-    }
-
-    public void setMaxNbOfGuests(Integer maxNbOfGuests) {
-        this.maxNbOfGuests = maxNbOfGuests;
-    }
-
-    public String getAccommodationType() {
-        return accommodationType;
-    }
-
-    public void setAccommodationType(String accommodationType) {
-        this.accommodationType = accommodationType;
-    }
-
-    public Set<AccommodationAmenity> getAmenities() {
-        return amenities;
-    }
-
-    public void setAmenities(Set<AccommodationAmenity> amenities) {
-        this.amenities = amenities;
-    }
-
-    public Set<IntervalAndPrice> getIntervalsAndPrices() {
-        return intervalsAndPrices;
-    }
-
-    public void setIntervalsAndPrices(Set<IntervalAndPrice> intervalsAndPrices) {
-        this.intervalsAndPrices = intervalsAndPrices;
-    }
-
-    public boolean isPriceSetPerGuest() {
-        return isPriceSetPerGuest;
-    }
-
-    public void setPriceSetPerGuest(boolean priceSetPerGuest) {
-        isPriceSetPerGuest = priceSetPerGuest;
-    }
-
-    public boolean isReservationManual() {
-        return isReservationManual;
-    }
-
-    public void setReservationManual(boolean reservationManual) {
-        isReservationManual = reservationManual;
-    }
-
-    public Set<Image> getImages() {
-        return images;
-    }
-
-    public void setImages(Set<Image> images) {
-        this.images = images;
-    }
-
 
 }
